@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface StudentPositionApplicationRepository extends JpaRepository<StudentPositionApplication, String > {
 
-    List<StudentPositionApplication> findByStudentId(String studentId);
-    List<StudentPositionApplication> findByPositionId(String positionId);
-    Optional<StudentPositionApplication> findByStudentIdAndPositionId(String studentId, String positionId);
+    List<StudentPositionApplication> findByStudent_Id(String studentId);
+    List<StudentPositionApplication> findByPosition_Id(String positionId);
+    Optional<StudentPositionApplication> findByStudent_IdAndPositionId(String studentId, String positionId);
 }

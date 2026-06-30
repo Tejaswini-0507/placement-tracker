@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface DiscussionThreadRepository extends JpaRepository<DiscussionThread, String> {
-    List<DiscussionThread> findByCompanyId(String companyId);
-    List<DiscussionThread> findByStudentId(String studentId);
-    List<DiscussionThread> findBYCompanyIdAndInterviewRound(String comapnyId, String interviewRound);
+    List<DiscussionThread> findByCompany_Id(String companyId);
+    List<DiscussionThread> findByCreatedByStudent_Id(String studentId);
+    List<DiscussionThread> findByCompany_IdAndInterviewRound(String companyId, String interviewRound);
 }

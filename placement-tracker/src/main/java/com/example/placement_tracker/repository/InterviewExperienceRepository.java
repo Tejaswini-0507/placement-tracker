@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface InterviewExperienceRepository extends JpaRepository<InterviewExperienceRepository ,String> {
+public interface InterviewExperienceRepository extends JpaRepository<InterviewExperience ,String> {
 
-    List<InterviewExperience> findByCompanyId(String companyId);
-    List<InterviewExperience> findByStudentId(String studentId);
-    List<InterviewExperience> findByCompanyIdAndInterviewRound(String companyId, String interviewRound);
+    List<InterviewExperience> findByCompany_Id(String companyId);
+    List<InterviewExperience> findByStudent_Id(String studentId);
+    List<InterviewExperience> findByCompany_IdAndInterviewRound(String companyId, String interviewRound);
 }

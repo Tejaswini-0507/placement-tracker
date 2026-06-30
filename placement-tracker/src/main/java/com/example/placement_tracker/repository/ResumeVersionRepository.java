@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ResumeVersionRepository extends JpaRepository<ResumeVersion, String> {
-    List<ResumeVersion> findByStudentIdOrderByVersionNumberDesc(String studentId);
+    List<ResumeVersion> findByStudent_IdOrderByVersionNumberDesc(String studentId);
 }

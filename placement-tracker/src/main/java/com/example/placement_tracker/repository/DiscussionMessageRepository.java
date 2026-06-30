@@ -8,7 +8,8 @@ import java.util.List;
 
 @Repository
 public interface DiscussionMessageRepository extends JpaRepository<DiscussionMessage, String> {
-    List<DiscussionMessage> findByThreadIdOrderByCreatedAtAsc(String threadId);
+    List<DiscussionMessage> findByThread_IdOrderByCreatedAtAsc(String threadId);
 
+    List<DiscussionMessage> findByStudent_IdOrderByCreatedAtAsc(String studentId);
 
 }

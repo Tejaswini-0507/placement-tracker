@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface InterviewRoundConfig extends JpaRepository<com.example.placement_tracker.entity.InterviewRoundConfig, String> {
+public interface InterviewRoundConfig extends JpaRepository<InterviewRoundConfig, String> {
 
-    List<InterviewRoundConfig> findByPositionIdOrderByRoundOrderAsc(String positionId);
-    InterviewRoundConfig findByPositionIdAndRoundOrder(String positionId, Integer roundOrder);
+    List<InterviewRoundConfig> findByPosition_IdOrderByRoundOrderAsc(String positionId);
+    InterviewRoundConfig findByPosition_IdAndRoundOrder(String positionId, Integer roundOrder);
 }
