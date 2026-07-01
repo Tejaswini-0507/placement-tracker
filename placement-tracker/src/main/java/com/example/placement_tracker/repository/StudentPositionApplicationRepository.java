@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface StudentPositionApplicationRepository extends JpaRepository<StudentPositionApplication, String > {
+public interface StudentPositionApplicationRepository extends JpaRepository<StudentPositionApplication, UUID > {
 
-    List<StudentPositionApplication> findByStudent_Id(String studentId);
-    List<StudentPositionApplication> findByPosition_Id(String positionId);
-    Optional<StudentPositionApplication> findByStudent_IdAndPositionId(String studentId, String positionId);
+    List<StudentPositionApplication> findByStudent_Id(UUID studentId);
+    List<StudentPositionApplication> findByPosition_Id(UUID positionId);
+    Optional<StudentPositionApplication> findByStudent_IdAndPosition_Id(UUID studentId, UUID positionId);
 }

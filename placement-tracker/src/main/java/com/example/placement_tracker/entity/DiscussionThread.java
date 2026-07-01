@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "discussion_threads" , indexes = {
@@ -25,7 +26,11 @@ public class DiscussionThread {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id",nullable = false)

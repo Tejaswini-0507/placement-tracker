@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "resume_versions",indexes = {
@@ -21,7 +25,7 @@ public class ResumeVersion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id",nullable = false)
@@ -42,6 +46,7 @@ public class ResumeVersion {
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "used_for_companies",columnDefinition = "jsonb")
     private JsonNode usedForCompanies;
 

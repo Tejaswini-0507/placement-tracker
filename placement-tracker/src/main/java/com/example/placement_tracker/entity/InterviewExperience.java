@@ -2,6 +2,7 @@ package com.example.placement_tracker.entity;
 
 
 import com.example.placement_tracker.enums.DifficultyLevel;
+import com.example.placement_tracker.enums.InterviewResult;
 import com.example.placement_tracker.enums.InterviewRound;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "interview_experiences", indexes = {
@@ -25,7 +30,7 @@ public class InterviewExperience {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id" , nullable = false)
@@ -66,9 +71,11 @@ public class InterviewExperience {
     @Column(name = "questions_asked",columnDefinition = "TEXT")
     private String questionsAsked;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "questions_json",columnDefinition = "jsonb")
     private JsonNode questionsJson;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private JsonNode topics;
 
@@ -83,7 +90,7 @@ public class InterviewExperience {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "result")
-    private String result;
+    private InterviewResult result;
 
     @Column(name = "result_received_date")
     private Long resultReceivedDate;

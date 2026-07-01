@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "topic_frequency_analytics", indexes = {
         @Index(name = "idx_analytics_company_round", columnList = "company_id, interview_round"),
@@ -19,7 +21,7 @@ public class TopicFrequencyAnalytics {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id",nullable = false)

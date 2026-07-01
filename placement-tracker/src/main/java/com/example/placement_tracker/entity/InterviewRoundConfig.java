@@ -5,8 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.EmbeddedColumnNaming;
-import tools.jackson.databind.JsonNode;
+//import org.hibernate.annotations.EmbeddedColumnNaming;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+//import tools.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonNode;  // ✅ CORRECT
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "interview_round_configs",indexes = {
@@ -22,7 +27,7 @@ public class InterviewRoundConfig {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "position_id", nullable = false)
@@ -40,6 +45,7 @@ public class InterviewRoundConfig {
     @Column(name = "duration_minutes")
     private Integer durationMinutes;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "expected_topics",columnDefinition = "jsonb")
     private JsonNode expectedTopics;
 

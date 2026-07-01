@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface DiscussionThreadRepository extends JpaRepository<DiscussionThread, String> {
-    List<DiscussionThread> findByCompany_Id(String companyId);
-    List<DiscussionThread> findByCreatedByStudent_Id(String studentId);
-    List<DiscussionThread> findByCompany_IdAndInterviewRound(String companyId, String interviewRound);
+public interface DiscussionThreadRepository extends JpaRepository<DiscussionThread, UUID> {
+    List<DiscussionThread> findByCompany_Id(UUID companyId);
+    List<DiscussionThread> findByCreatedByStudent_Id(UUID studentId);
+    List<DiscussionThread> findByCompany_IdAndInterviewRound(UUID companyId, String interviewRound);
 }

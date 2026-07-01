@@ -5,11 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface InterviewExperienceRepository extends JpaRepository<InterviewExperience ,String> {
+public interface InterviewExperienceRepository extends JpaRepository<InterviewExperience ,UUID> {
 
-    List<InterviewExperience> findByCompany_Id(String companyId);
-    List<InterviewExperience> findByStudent_Id(String studentId);
-    List<InterviewExperience> findByCompany_IdAndInterviewRound(String companyId, String interviewRound);
+    List<InterviewExperience> findByCompany_Id(UUID companyId);
+    List<InterviewExperience> findByStudent_Id(UUID studentId);
+    List<InterviewExperience> findByCompany_IdAndInterviewRound(UUID companyId, String interviewRound);
 }

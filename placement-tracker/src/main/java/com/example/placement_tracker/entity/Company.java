@@ -8,10 +8,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "companies", indexes = {
@@ -27,7 +31,7 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @Column(nullable = false,unique = true)
     private String name;
@@ -46,11 +50,12 @@ public class Company {
     @Column(nullable = false)
     private String hiringFor;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private JsonNode packagesOffered;
 
     @Column(nullable = false,name = "average_difficulty")
-    private Double averageDifficulty;
+    private BigDecimal averageDifficulty;
 
     @Column(name = "total_applicants")
     private Integer totalApplicants;

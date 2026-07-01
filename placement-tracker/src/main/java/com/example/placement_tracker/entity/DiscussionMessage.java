@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "discussion_messages",indexes = {
         @Index(name = "idx_msg_student",columnList = "student_id"),
@@ -21,7 +23,7 @@ public class DiscussionMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "thread_id", nullable = false)
