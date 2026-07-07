@@ -43,7 +43,7 @@ public class Company {
 
     private String description;
 
-    private String headquarters;
+    private String headQuarters;
 
     private String industry;
 
