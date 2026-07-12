@@ -19,12 +19,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class ResumeService {
+public class ResumeVersionService {
     @Autowired
     ResumeVersionRepository resumeVersionRepository;
 
@@ -44,16 +43,23 @@ public class ResumeService {
         Student student = studentRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
 
-        if(file.isEmpty()){
-            throw new IllegalArgumentException("File is empty");
-        }
-
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("File is empty");
         }
 
-        if(!file.getContentType().equals("application/pdf")){
-            throw new IllegalArgumentException("Only PDF files are allowed");
+        String originalFileName = file.getOriginalFilename();
+
+        System.out.println("Original File Name: " + originalFileName);
+        System.out.println("Content Type: " + file.getContentType());
+
+        if(originalFileName == null){
+            throw new IllegalArgumentException("Invalid File");
+        }
+
+        String lowerCaseName = originalFileName.toLowerCase();
+
+        if (!(lowerCaseName.endsWith(".pdf") || lowerCaseName.endsWith(".docx"))) {
+            throw new IllegalArgumentException("Only .pdf and .docx files are allowed");
         }
 
         if(file.getSize() > 5 * 1024 * 1024){
@@ -64,7 +70,7 @@ public class ResumeService {
             throw new IllegalArgumentException("Version number must be positive");
         }
 
-        List<ResumeVersion> existingVersions = resumeVersionRepository.findByStudentId(student.getId());
+        List<ResumeVersion> existingVersions = resumeVersionRepository.findByStudent_Id(student.getId());
         if (existingVersions.stream()
                 .anyMatch(v -> v.getVersionNumber().equals(versionNumber))) {
             throw new IllegalArgumentException(
@@ -112,7 +118,7 @@ public class ResumeService {
         Student student = studentRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
 
-        return resumeVersionRepository.findByStudentId(student.getId())
+        return resumeVersionRepository.findByStudent_Id(student.getId())
                 .stream()
                 .map(this :: entityToResponse)
                 .collect(Collectors.toList());
@@ -132,9 +138,9 @@ public class ResumeService {
         Student student = studentRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
 
-        ResumeVersion resumeVersion = resumeVersionRepository.findByStudent_IdOrderByVersionNumberDesc(
-                student.getId())
-                .orElseThrow(()-> new IllegalArgumentException("Resume version"+ versionNumber + "not found"));
+        ResumeVersion resumeVersion = resumeVersionRepository.findByStudent_IdAndVersionNumber(
+                student.getId(),versionNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Resume version" + versionNumber + "not found"));
 
         return entityToResponse(resumeVersion);
     }

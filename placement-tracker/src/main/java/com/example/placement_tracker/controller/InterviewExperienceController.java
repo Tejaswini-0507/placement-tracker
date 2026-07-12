@@ -33,8 +33,9 @@ public class InterviewExperienceController {
                     new ErrorResponse("VALIDATION_ERROR",e.getMessage(),System.currentTimeMillis())
             );
         } catch (Exception e) {
+            String message = e.getMessage();
             return ResponseEntity.status(500).body(
-                    new ErrorResponse("INTERNAL_SERVER","Failed to create application",System.currentTimeMillis())
+                    new ErrorResponse("INTERNAL_SERVER",message,System.currentTimeMillis())
             );
         }
     }

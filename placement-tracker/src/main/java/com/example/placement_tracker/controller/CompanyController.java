@@ -17,6 +17,7 @@ import java.util.UUID;
 @RequestMapping("/companies/")
 @CrossOrigin(origins =  "*")
 public class CompanyController {
+
     @Autowired
     CompanyService companyService;
 
@@ -92,5 +93,4 @@ public class CompanyController {
                     .body(new ErrorResponse("INTERNAL_ERROR","Failed to delete company",System.currentTimeMillis()));
         }
     }
-
 }

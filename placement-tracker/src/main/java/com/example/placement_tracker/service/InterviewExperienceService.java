@@ -1,5 +1,6 @@
 package com.example.placement_tracker.service;
 
+import com.example.placement_tracker.document.ExperienceDocument;
 import com.example.placement_tracker.dto.InterviewExperienceRequest;
 import com.example.placement_tracker.dto.InterviewExperienceResponse;
 import com.example.placement_tracker.entity.Company;
@@ -9,6 +10,7 @@ import com.example.placement_tracker.enums.DifficultyLevel;
 import com.example.placement_tracker.enums.InterviewResult;
 import com.example.placement_tracker.enums.InterviewRound;
 import com.example.placement_tracker.repository.CompanyRepository;
+import com.example.placement_tracker.repository.ExperienceSearchRepository;
 import com.example.placement_tracker.repository.InterviewExperienceRepository;
 import com.example.placement_tracker.repository.StudentRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,6 +21,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
@@ -35,6 +39,9 @@ public class InterviewExperienceService {
 
     @Autowired
     CompanyRepository companyRepository;
+
+    @Autowired
+    ExperienceSearchRepository experienceSearchRepository;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -89,6 +96,10 @@ public class InterviewExperienceService {
                .build();
 
             interviewExperience = interviewExperienceRepository.save(interviewExperience);
+
+            ExperienceDocument document = convertToDocument(interviewExperience);
+            experienceSearchRepository.save(document);
+
             return entityToResponse(interviewExperience);
 
     }
@@ -232,5 +243,51 @@ public class InterviewExperienceService {
                 .createdAt(interviewExperience.getCreatedAt())
                 .updatedAt(interviewExperience.getUpdatedAt())
                 .build();
+    }
+
+    private ExperienceDocument convertToDocument(InterviewExperience experience) {
+
+
+
+        return ExperienceDocument.builder()
+                .id(experience.getId())
+                .studentId(experience.getStudent().getId())
+                .studentName(experience.getStudent().getName()) // Change if your field name is different
+                .companyId(experience.getCompany().getId())
+                .companyName(experience.getCompany().getName()) // Change if your field name is different
+                .interviewRound(experience.getInterviewRound())
+                .difficultyRating(experience.getDifficultyRating())
+                .durationMinutes(experience.getDurationMinutes())
+                .totalProblemsAsked(experience.getTotalProblemsAsked())
+                .questionsAsked(experience.getQuestionsAsked())
+
+                // Convert JsonNode to String
+                .topics(convertTopics(experience.getTopics()))
+
+                .experienceSummary(experience.getExperienceSummary())
+                .helpfulResources(experience.getHelpfulResources())
+                .result(experience.getResult().name())
+                .resultReceivedDate(experience.getResultReceivedDate())
+                .isPublic(experience.getIsPublic())
+                .upvotes(experience.getUpvotes())
+                .downvotes(experience.getDownvotes())
+                .createdAt(experience.getCreatedAt())
+                .updatedAt(experience.getUpdatedAt())
+                .build();
+    }
+
+    private List<String> convertTopics(JsonNode topicsNode) {
+
+        if (topicsNode == null || !topicsNode.isArray()) {
+            return Collections.emptyList();
+        }
+
+        List<String> topics = new ArrayList<>();
+
+        for (JsonNode node : topicsNode) {
+            topics.add(node.asText().trim());
+        }
+
+        return topics;
     }
 }

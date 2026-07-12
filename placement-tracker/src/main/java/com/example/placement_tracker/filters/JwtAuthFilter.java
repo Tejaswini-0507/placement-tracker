@@ -35,7 +35,21 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     )throws ServletException , IOException{
 
         try{
+            System.out.println("URI: "+ request.getRequestURI());
             String token = getTokenFromRequest(request);
+
+            System.out.println("Token: "+ token);
+
+            if(token != null){
+                System.out.println("Token valid: "+ jwtUtil.validateToken(token));
+
+                if(jwtUtil.validateToken(token)){
+                    String email = jwtUtil.extractEmail(token);
+                    System.out.println("Email : "+ email);
+                }
+
+            }
+
 
             if(token != null && jwtUtil.validateToken(token)){
                 String email = jwtUtil.extractEmail(token);

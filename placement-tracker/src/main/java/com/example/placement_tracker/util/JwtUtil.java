@@ -65,6 +65,9 @@ public class JwtUtil {
             return true;
         }
         catch (Exception e){
+            System.out.println("===================================JWT VALIDATION FAILED=========================================");
+            e.printStackTrace();
+            System.out.println("==================================================================================================");
             return false;
         }
     }
