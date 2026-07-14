@@ -9,8 +9,21 @@ import java.util.UUID;
 
 @Repository
 public interface DiscussionMessageRepository extends JpaRepository<DiscussionMessage, UUID> {
+
+    //Find by thread
     List<DiscussionMessage> findByThread_IdOrderByCreatedAtAsc(UUID threadId);
 
     List<DiscussionMessage> findByStudent_IdOrderByCreatedAtAsc(UUID studentId);
 
+
+    List<DiscussionMessage> findByThread_Id(UUID threadId);
+
+    // Find by student
+    List<DiscussionMessage> findByStudent_Id(UUID studentId);
+
+    // Count
+    long countByThread_Id(UUID threadId);
+
+    // Find messages after specific timestamp (for polling)
+    List<DiscussionMessage> findByThread_IdAndCreatedAtGreaterThanOrderByCreatedAtAsc(UUID threadId, Long createdAt);
 }
