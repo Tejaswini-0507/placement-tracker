@@ -22,7 +22,7 @@ public class RecentExperienceResponse {
 
     private String companyName;
 
-    private InterviewRound interviewRound;
+    private String interviewRound;
 
     private DifficultyLevel difficultyLevel;
 

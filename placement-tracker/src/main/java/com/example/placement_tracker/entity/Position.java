@@ -9,9 +9,13 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@Table(name = "positions", indexes = {
-        @Index(name = "idx_position_company", columnList = "company_id")
-})
+@Table(name = "positions",
+        indexes = {
+            @Index(name = "idx_position_company", columnList = "company_id")},
+        uniqueConstraints = {
+            @UniqueConstraint(name ="uk_company_title",columnNames = {"company_id","title"})
+        }
+)
 @Data
 @Builder
 @AllArgsConstructor
@@ -30,23 +34,8 @@ public class Position {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "batch_applicable")
-    private Integer batchApplicable;
-
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-
-    @Column(name = "ctc")
-    private String ctc;
-
-    @Column(name = "bond_period")
-    private String bondPeriod;
-
-    @Column(name = "location")
+    @Column(name = "location",nullable = false)
     private String location;
-
-    @Column(name = "total_positions")
-    private Integer totalPositions;
 
     @Column(name = "created_at",nullable = false,updatable = false)
     private Long createdAt;

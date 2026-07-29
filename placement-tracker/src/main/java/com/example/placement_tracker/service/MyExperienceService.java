@@ -70,7 +70,7 @@ public class MyExperienceService {
     private MyExperienceResponse.ExperienceDetailResponse toDetailResponse(InterviewExperience exp) {
         return MyExperienceResponse.ExperienceDetailResponse.builder()
                 .companyName(exp.getCompany().getName())
-                .interviewRound(exp.getInterviewRound().toString())
+                .interviewRound(exp.getInterviewRoundConfig().getRoundName().toString())
                 .difficultyLevel(exp.getDifficultyRating().toString())
                 .result(exp.getResult().toString())
                 .topics(exp.getTopics().toString())

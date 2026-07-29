@@ -23,7 +23,13 @@ public class InterviewExperienceResponse {
 
     private String companyName;
 
-    private String interviewRound;
+    private UUID positionId;
+
+    private String positionName;
+
+    private UUID interviewRoundConfigId;
+
+    private String interviewRoundName;
 
     private Long dateExperienced;
 

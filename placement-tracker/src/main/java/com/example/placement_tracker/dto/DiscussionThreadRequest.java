@@ -22,7 +22,7 @@ public class DiscussionThreadRequest {
     @NotNull(message = "Student Id is required")
     private UUID studentId;
 
-    private InterviewRound interviewRound;
+    private String interviewRound;
 
     private String topic;
 

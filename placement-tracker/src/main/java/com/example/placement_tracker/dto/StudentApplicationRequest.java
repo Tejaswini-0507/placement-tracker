@@ -18,6 +18,12 @@ public class StudentApplicationRequest {
     @NotNull(message = "CompanyId is required")
     private UUID companyId;
 
+    @NotBlank(message = "Position title is required")
+    private String positionTitle;
+
+    @NotBlank(message = "Location is required")
+    private String location;
+
     @NotBlank(message = "status is required")
     private String status;
 

@@ -33,9 +33,9 @@ public class InterviewExperienceController {
                     new ErrorResponse("VALIDATION_ERROR",e.getMessage(),System.currentTimeMillis())
             );
         } catch (Exception e) {
-            String message = e.getMessage();
+            e.printStackTrace();
             return ResponseEntity.status(500).body(
-                    new ErrorResponse("INTERNAL_SERVER",message,System.currentTimeMillis())
+                    new ErrorResponse("INTERNAL_SERVER","FAILED TO CREATE APPLICATION",System.currentTimeMillis())
             );
         }
     }
@@ -104,7 +104,8 @@ public class InterviewExperienceController {
         }
     }
 
-    @PostMapping("/{id}/upvote")
+    @Transactional
+    @PostMapping("/upvote/{id}")
     public ResponseEntity<?> upvoteExperience(@PathVariable UUID id) {
         try {
             InterviewExperienceResponse response = interviewExperienceService.upvoteExperience(id);
@@ -114,11 +115,12 @@ public class InterviewExperienceController {
                     .body(new ErrorResponse("NOT_FOUND", e.getMessage(),System.currentTimeMillis()));
         } catch (Exception e) {
             return ResponseEntity.status(500)
-                    .body(new ErrorResponse("INTERNAL_ERROR", "Failed to upvote experience",System.currentTimeMillis()));
+                    .body(new ErrorResponse("INTERNAL_ERROR", e.getMessage(),System.currentTimeMillis()));
         }
     }
 
-    @PostMapping("/{id}/downvote")
+    @Transactional
+    @PostMapping("/downvote/{id}")
     public ResponseEntity<?> downvoteExperience(@PathVariable UUID id) {
         try {
             InterviewExperienceResponse response = interviewExperienceService.downvoteExperience(id);
@@ -128,7 +130,7 @@ public class InterviewExperienceController {
                     .body(new ErrorResponse("NOT_FOUND", e.getMessage(),System.currentTimeMillis()));
         } catch (Exception e) {
             return ResponseEntity.status(500)
-                    .body(new ErrorResponse("INTERNAL_ERROR", "Failed to downvote experience",System.currentTimeMillis()));
+                    .body(new ErrorResponse("INTERNAL_ERROR", e.getMessage(),System.currentTimeMillis()));
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.placement_tracker.document;
 
 
+import com.example.placement_tracker.entity.InterviewRoundConfig;
 import com.example.placement_tracker.enums.DifficultyLevel;
 
 import com.example.placement_tracker.enums.InterviewRound;
@@ -41,8 +42,14 @@ public class ExperienceDocument {
     @Field(type = FieldType.Text, analyzer = "standard")
     private String companyName;
 
+    @Field(type = FieldType.Text, analyzer = "standard")
+    private String positionTitle;
+
     @Field(type = FieldType.Keyword)
-    private InterviewRound interviewRound;
+    private UUID interviewRoundConfigId;
+
+    @Field(type = FieldType.Keyword)
+    private String interviewRoundName;
 
     @Field(type = FieldType.Keyword)
     private DifficultyLevel difficultyRating;

@@ -3,5 +3,6 @@ package com.example.placement_tracker.enums;
 public enum InterviewResult {
     PASSED,
     FAILED,
-    PENDING
+    PENDING,
+    WAITING_LIST
 }

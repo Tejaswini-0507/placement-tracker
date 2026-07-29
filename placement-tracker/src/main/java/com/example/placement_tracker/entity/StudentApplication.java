@@ -36,6 +36,10 @@ public class StudentApplication {
     @JoinColumn(name = "company_id",nullable = false)
     private Company company;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "position_id",nullable = false)
+    private Position position;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ApplicationStatus status;

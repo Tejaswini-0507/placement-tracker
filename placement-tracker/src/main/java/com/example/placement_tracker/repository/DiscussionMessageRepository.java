@@ -1,6 +1,7 @@
 package com.example.placement_tracker.repository;
 
 import com.example.placement_tracker.entity.DiscussionMessage;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 public interface DiscussionMessageRepository extends JpaRepository<DiscussionMessage, UUID> {
 
     //Find by thread
+    @EntityGraph(attributePaths = {"thread","student"})
     List<DiscussionMessage> findByThread_IdOrderByCreatedAtAsc(UUID threadId);
 
     List<DiscussionMessage> findByStudent_IdOrderByCreatedAtAsc(UUID studentId);
@@ -25,5 +27,6 @@ public interface DiscussionMessageRepository extends JpaRepository<DiscussionMes
     long countByThread_Id(UUID threadId);
 
     // Find messages after specific timestamp (for polling)
+    @EntityGraph(attributePaths = {"thread","student"})
     List<DiscussionMessage> findByThread_IdAndCreatedAtGreaterThanOrderByCreatedAtAsc(UUID threadId, Long createdAt);
 }

@@ -3,16 +3,11 @@ package com.example.placement_tracker.service;
 import com.example.placement_tracker.document.ExperienceDocument;
 import com.example.placement_tracker.dto.InterviewExperienceRequest;
 import com.example.placement_tracker.dto.InterviewExperienceResponse;
-import com.example.placement_tracker.entity.Company;
-import com.example.placement_tracker.entity.InterviewExperience;
-import com.example.placement_tracker.entity.Student;
+import com.example.placement_tracker.entity.*;
 import com.example.placement_tracker.enums.DifficultyLevel;
 import com.example.placement_tracker.enums.InterviewResult;
 import com.example.placement_tracker.enums.InterviewRound;
-import com.example.placement_tracker.repository.CompanyRepository;
-import com.example.placement_tracker.repository.ExperienceSearchRepository;
-import com.example.placement_tracker.repository.InterviewExperienceRepository;
-import com.example.placement_tracker.repository.StudentRepository;
+import com.example.placement_tracker.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,12 +36,19 @@ public class InterviewExperienceService {
     CompanyRepository companyRepository;
 
     @Autowired
+    StudentApplicationRepository applicationRepository;
+
+    @Autowired
+    InterviewRoundConfigRepository interviewRoundConfigRepository;
+
+    @Autowired
     ExperienceSearchRepository experienceSearchRepository;
 
     @Autowired
     ObjectMapper objectMapper;
 
     //Create
+    @Transactional
     public InterviewExperienceResponse createInterviewExperience(InterviewExperienceRequest request){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -57,6 +59,12 @@ public class InterviewExperienceService {
 
        Company company = companyRepository.findById(request.getCompanyId())
                .orElseThrow(() -> new IllegalArgumentException("Company not found"));
+
+        StudentApplication application = applicationRepository.findByStudent_IdAndCompany_IdAndPosition_Id(student.getId(),company.getId(),request.getPositionId())
+                .orElseThrow(() -> new IllegalArgumentException("Application Not found"));
+
+       InterviewRoundConfig roundConfig = interviewRoundConfigRepository.findById(request.getInterviewRoundConfigId())
+               .orElseThrow(() -> new IllegalArgumentException("Round not found"));
 
        JsonNode questionsJsonNode = null;
        if(request.getQuestionsJson() != null){
@@ -73,14 +81,18 @@ public class InterviewExperienceService {
                String[] topicArray = request.getTopics().split(",");
                topicsJsonNode = objectMapper.valueToTree(topicArray);
            }catch (Exception e){
-               throw new IllegalArgumentException("Invalid format for topics");
+               e.printStackTrace();
+               throw new IllegalArgumentException("Invalid format for topics",e);
            }
        }
+
+
 
        InterviewExperience interviewExperience = InterviewExperience.builder()
                .student(student)
                .company(company)
-               .interviewRound(InterviewRound.valueOf(request.getInterviewRound()))
+               .studentApplication(application)
+               .interviewRoundConfig(roundConfig)
                .dateExperienced(request.getDateExperienced())
                .difficultyRating(DifficultyLevel.valueOf(request.getDifficultyRating()))
                .totalProblemsAsked(request.getTotalProblemsAsked())
@@ -177,7 +189,11 @@ public class InterviewExperienceService {
             }
         }
 
-        interviewExperience.setInterviewRound(InterviewRound.valueOf(request.getInterviewRound()));
+
+        InterviewRoundConfig round = interviewRoundConfigRepository.findById(request.getInterviewRoundConfigId())
+                        .orElseThrow(()->  new IllegalArgumentException("Interview Round not found"));
+
+        interviewExperience.setInterviewRoundConfig(round);
         interviewExperience.setDateExperienced(request.getDateExperienced());
         interviewExperience.setDifficultyRating(DifficultyLevel.valueOf(request.getDifficultyRating()));
         interviewExperience.setDurationMinutes(request.getDurationMinutes());
@@ -209,7 +225,7 @@ public class InterviewExperienceService {
     public InterviewExperienceResponse downvoteExperience(UUID id){
         InterviewExperience interviewExperience = interviewExperienceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Experience not found"));
-        interviewExperience.setDownvotes((interviewExperience.getDownvotes() != null ? interviewExperience.getUpvotes() : 0) + 1);
+        interviewExperience.setDownvotes((interviewExperience.getDownvotes() != null ? interviewExperience.getDownvotes() : 0) + 1);
         interviewExperience =interviewExperienceRepository.save(interviewExperience);
         return entityToResponse(interviewExperience);
     }
@@ -217,7 +233,6 @@ public class InterviewExperienceService {
     //HELPER
     private InterviewExperienceResponse entityToResponse(InterviewExperience interviewExperience){
         DifficultyLevel difficultyLevel = interviewExperience.getDifficultyRating();
-        InterviewRound interviewRound = interviewExperience.getInterviewRound();
         InterviewResult interviewResult = interviewExperience.getResult();
         return InterviewExperienceResponse.builder()
                 .id(interviewExperience.getId())
@@ -225,7 +240,10 @@ public class InterviewExperienceService {
                 .studentName(interviewExperience.getStudent().getName())
                 .companyId(interviewExperience.getCompany().getId())
                 .companyName(interviewExperience.getCompany().getName())
-                .interviewRound(String.valueOf(interviewRound))
+                .positionId(interviewExperience.getStudentApplication().getPosition().getId())
+                .positionName(interviewExperience.getStudentApplication().getPosition().getTitle())
+                .interviewRoundConfigId(interviewExperience.getInterviewRoundConfig().getId())
+                .interviewRoundName(interviewExperience.getInterviewRoundConfig().getRoundName())
                 .dateExperienced(interviewExperience.getDateExperienced())
                 .difficultyRating(String.valueOf(difficultyLevel))
                 .totalProblemsAsked(interviewExperience.getTotalProblemsAsked())
@@ -254,8 +272,10 @@ public class InterviewExperienceService {
                 .studentId(experience.getStudent().getId())
                 .studentName(experience.getStudent().getName()) // Change if your field name is different
                 .companyId(experience.getCompany().getId())
-                .companyName(experience.getCompany().getName()) // Change if your field name is different
-                .interviewRound(experience.getInterviewRound())
+                .companyName(experience.getCompany().getName())
+                .positionTitle(experience.getStudentApplication().getPosition().getTitle())// Change if your field name is different
+                .interviewRoundConfigId(experience.getInterviewRoundConfig().getId())
+                .interviewRoundName(experience.getInterviewRoundConfig().getRoundName())
                 .difficultyRating(experience.getDifficultyRating())
                 .durationMinutes(experience.getDurationMinutes())
                 .totalProblemsAsked(experience.getTotalProblemsAsked())

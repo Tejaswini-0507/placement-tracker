@@ -90,6 +90,10 @@ public class Company {
     @JsonIgnore
     private List<Position> positions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "company",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<InterviewRoundConfig> interviewRoundConfigs;
+
     @PrePersist
     public void onCreate(){
         createdAt = System.currentTimeMillis();

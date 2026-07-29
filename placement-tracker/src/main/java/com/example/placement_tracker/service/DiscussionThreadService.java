@@ -128,7 +128,7 @@ public class DiscussionThreadService {
 
         if (request.getTitle() != null) thread.setTitle(request.getTitle());
         if (request.getDescription() != null) thread.setDescription(request.getDescription());
-        if (request.getInterviewRound() != null) thread.setInterviewRound(String.valueOf(request.getInterviewRound()));
+        if (request.getInterviewRound() != null) thread.setInterviewRound(request.getInterviewRound());
         if (request.getTopic() != null) thread.setTopic(request.getTopic());
 
         thread = threadRepository.save(thread);

@@ -3,7 +3,6 @@ package com.example.placement_tracker.entity;
 
 import com.example.placement_tracker.enums.DifficultyLevel;
 import com.example.placement_tracker.enums.InterviewResult;
-import com.example.placement_tracker.enums.InterviewRound;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +16,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "interview_experiences", indexes = {
-        @Index(name = "idx_exp_company_round" , columnList = "company_id, interview_round"),
+        @Index(name = "idx_exp_company_round" , columnList = "company_id, interview_round_config_id"),
         @Index(name = "idx_exp_difficulty" , columnList = "difficulty_rating"),
         @Index(name = "idx_exp_student_company",columnList = "student_id, company_id"),
         @Index(name = "idx_exp_upvotes",columnList = "upvotes DESC")
@@ -41,19 +40,15 @@ public class InterviewExperience {
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_position_application_id")
-    private StudentPositionApplication studentPositionApplication;
+    @JoinColumn(name = "student_application_id")
+    private StudentApplication studentApplication;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "interview_round_config_id")
     private InterviewRoundConfig interviewRoundConfig;
 
-    @Column(name = "round_integer")
+    @Column(name = "round_number")
     private Integer roundNumber;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "interview_round",nullable = false)
-    private InterviewRound interviewRound;
 
     @Column(name = "date_experienced",nullable = false)
     private Long dateExperienced;

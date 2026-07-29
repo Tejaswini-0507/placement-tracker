@@ -70,17 +70,7 @@ public class SearchService {
         if(request.getDifficultyRating() != null){
             criteria = criteria.and(where("difficultyRating").is(request.getDifficultyRating()));
         }
-
-//        if(request.getTopics() != null && !request.getTopics().isEmpty()){
-//            Criteria topicCriteria = new Criteria("topics");
-//
-//            for (String topic : request.getTopics()) {
-//                topicCriteria.or(new Criteria("topics").is(topic));
-//            }
-//
-//            criteria = criteria.and(topicCriteria);
-//
-//        }
+        
 
         if (request.getTopics() != null && !request.getTopics().isEmpty()) {
 
@@ -144,7 +134,9 @@ public class SearchService {
                 .studentName(doc.getStudentName())
                 .companyId(doc.getCompanyId())
                 .companyName(doc.getCompanyName())
-                .interviewRound(String.valueOf(doc.getInterviewRound()))
+                .positionTitle(doc.getPositionTitle())
+                .interviewRoundConfigId(doc.getInterviewRoundConfigId())
+                .interviewRoundName(doc.getInterviewRoundName())
                 .difficultyRating(String.valueOf(doc.getDifficultyRating()))
                 .durationMinutes(doc.getDurationMinutes())
                 .totalProblemsAsked(doc.getTotalProblemsAsked())

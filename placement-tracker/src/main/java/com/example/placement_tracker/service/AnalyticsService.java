@@ -50,7 +50,7 @@ public class AnalyticsService {
         Map<String, List<InterviewExperience>> byRound =
                 experiences.stream()
                         .collect(Collectors.groupingBy(
-                                exp -> exp.getInterviewRound().toString()
+                                exp -> exp.getInterviewRoundConfig().getRoundName()
                         ));
 
         // For each round, calculate topic frequencies

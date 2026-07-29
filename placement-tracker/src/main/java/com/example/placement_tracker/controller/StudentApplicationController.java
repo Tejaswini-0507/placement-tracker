@@ -10,13 +10,14 @@ import com.example.placement_tracker.service.StudentApplicationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/student-application/")
+@RequestMapping("/student-application")
 @CrossOrigin(origins = "*")
 public class StudentApplicationController {
 
@@ -24,7 +25,7 @@ public class StudentApplicationController {
     StudentApplicationService studentApplicationService;
 
     //CREATE APPLICATION
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<?> createApplication(@Valid @RequestBody StudentApplicationRequest request){
         try{
             StudentApplicationResponse response = studentApplicationService.createApplication(request);
@@ -38,8 +39,9 @@ public class StudentApplicationController {
     }
 
     //READ ONE
+    @Transactional
     @GetMapping("/{id}")
-    public ResponseEntity<?> getApplicationById(@PathVariable UUID id ){
+    public ResponseEntity<?> getApplicationById(@PathVariable UUID id){
         try {
             StudentApplicationResponse studentApplicationResponse = studentApplicationService.getApplicationById(id);
             return ResponseEntity.ok(studentApplicationResponse);
@@ -47,20 +49,22 @@ public class StudentApplicationController {
             return ResponseEntity.status(404)
                     .body(new ErrorResponse("NOT_FOUND",e.getMessage(),System.currentTimeMillis()));
         }catch (Exception e){
-            return ResponseEntity.status(500).body(new ErrorResponse("INTERNAL_ERROR","Failed to fetch application",System.currentTimeMillis()));
+            return ResponseEntity.status(500).body(new ErrorResponse("INTERNAL_ERROR",e.getMessage(),System.currentTimeMillis()));
         }
     }
 
 
     //READ ALL
+    @Transactional
     @GetMapping("/my-applications")
     public ResponseEntity<?> getMyApplications(){
         try {
             List<StudentApplicationResponse> applicationResponses = studentApplicationService.getAllMyApplications();
             return ResponseEntity.ok(applicationResponses);
         }catch (IllegalArgumentException e){
+            String message = e.getMessage();
             return ResponseEntity.status(500)
-                    .body(new ErrorResponse("INTERNAL_ERROR","Failed to fetch applications",System.currentTimeMillis()));
+                    .body(new ErrorResponse("INTERNAL_ERROR",message,System.currentTimeMillis()));
         }
     }
 
@@ -97,7 +101,6 @@ public class StudentApplicationController {
                     .body(new ErrorResponse("INTERNAL_ERROR", "Failed to update application",System.currentTimeMillis()));
         }
     }
-
 
 
 }

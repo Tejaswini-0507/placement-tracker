@@ -22,7 +22,11 @@ public class SearchResponse {
 
     private String companyName;
 
-    private String interviewRound;
+    private String positionTitle;
+
+    private UUID interviewRoundConfigId;
+
+    private String interviewRoundName;
 
     private String difficultyRating;
 

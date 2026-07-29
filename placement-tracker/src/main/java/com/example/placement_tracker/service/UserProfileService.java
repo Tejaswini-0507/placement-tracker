@@ -17,6 +17,8 @@ public class UserProfileService {
     @Autowired
     StudentRepository studentRepository;
 
+
+
     //GET MY PROFILE
     public UserProfileResponse getMyProfile() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

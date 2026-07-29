@@ -17,7 +17,13 @@ public class StudentApplicationResponse {
 
     private UUID studentId;
 
+    private String studentName;
+
     private UUID companyId;
+
+    private String companyName;
+
+    private String positionTitle;
 
     private String status;
 

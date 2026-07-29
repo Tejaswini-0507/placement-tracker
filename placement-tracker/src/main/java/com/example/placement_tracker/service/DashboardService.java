@@ -46,7 +46,7 @@ public class DashboardService {
     InterviewExperienceRepository experienceRepository;
 
     @Autowired
-    ResumeVersionRepository resumeRespository;
+    ResumeVersionRepository resumeRepository;
 
     @Transactional
     public DashboardStats getDashBoard(){
@@ -57,7 +57,7 @@ public class DashboardService {
 
         List<StudentApplication> applications = applicationRepository.findByStudent_Id(student.getId());
         List<InterviewExperience> experiences = experienceRepository.findByStudent_Id(student.getId());
-        List<ResumeVersion> resumes = resumeRespository.findByStudent_Id(student.getId());
+        List<ResumeVersion> resumes = resumeRepository.findByStudent_Id(student.getId());
 
         //Count by status
         long offersCount = applications.stream()
@@ -147,7 +147,7 @@ public class DashboardService {
                 .id(exp.getId())
                 .companyId(exp.getCompany().getId())
                 .companyName(exp.getCompany().getName())
-                .interviewRound(exp.getInterviewRound())
+                .interviewRound(exp.getInterviewRoundConfig().getRoundName())
                 .difficultyLevel(exp.getDifficultyRating())
                 .result(exp.getResult())
                 .topics(exp.getTopics().toString())

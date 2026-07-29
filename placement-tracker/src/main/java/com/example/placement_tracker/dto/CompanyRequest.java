@@ -35,7 +35,6 @@ public class CompanyRequest {
     @NotBlank(message = "Hiring for is required")
     private String hiringFor;
 
-
     private String packagesOffered;
 
     @Positive(message = "Average Difficulty must be positive")
