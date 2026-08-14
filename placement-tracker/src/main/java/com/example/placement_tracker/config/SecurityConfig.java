@@ -42,6 +42,7 @@ public class SecurityConfig {
         System.out.println("SecurityConfig loaded");
 
         http
+//                .cors(cors -> {})
                 .csrf(csrf -> csrf.disable())
                         .formLogin(form -> form.disable())
                                 .httpBasic(basic -> basic.disable())
@@ -49,9 +50,28 @@ public class SecurityConfig {
                                                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                                 auth
-                                        .requestMatchers("/auth/**").permitAll()
-                                        .requestMatchers("/api/**").permitAll()
-                                        .requestMatchers("/error").permitAll()
+
+
+                                        .requestMatchers(
+                                                "/",
+                                                "/index.html",
+                                                "/login.html",
+                                                "/register.html",
+                                                "/dashboard.html",
+                                                "/style.css",
+                                                "/register.css",
+                                                "/login.css",
+                                                "/dashboard.css",
+                                                "/script.js",
+                                                "/register.js",
+                                                "/login.js",
+                                                "/dashboard.js",
+                                                "/auth/**",
+                                                "/error"
+                                        ).permitAll()
+//                                        .requestMatchers("/auth/**").permitAll()
+//                                        .requestMatchers("/api/**").permitAll()
+//                                        .requestMatchers("/error").permitAll()
 
                                         .anyRequest().authenticated()
                         );
@@ -63,9 +83,22 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
+
         configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
+
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Content-Type",
+                "Accept",
+                "Origin"
+        ));
+
+        configuration.setExposedHeaders(Arrays.asList(
+                "Authorization"
+        ));
+
+//        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowCredentials(false);
         configuration.setMaxAge(3600L);
 

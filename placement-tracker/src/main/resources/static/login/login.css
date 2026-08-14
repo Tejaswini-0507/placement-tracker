@@ -1,0 +1,513 @@
+/* ==========================================================================
+   CAREERSPACE - AUTHENTICATION MODULE STYLES (LOGIN & COMMON AUTH)
+   Design System Continuity: Same Palette, Typography & Elevation
+   ========================================================================== */
+
+/* Page Background */
+.auth-page-body {
+    background-color: var(--bg-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Split-Screen Wrapper */
+.auth-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   LEFT PANEL: VISUAL BRAND & ILLUSTRATION
+   -------------------------------------------------------------------------- */
+.auth-visual-side {
+    background: linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #1D4ED8 100%);
+    color: #FFFFFF;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-visual-side::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+}
+
+.visual-content {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+    z-index: 2;
+}
+
+.visual-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.logo-icon.light {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    backdrop-filter: blur(8px);
+}
+
+.logo-text.light {
+    color: #FFFFFF;
+}
+
+.visual-hero-text h2 {
+    font-family: var(--font-heading);
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+}
+
+.visual-hero-text p {
+    font-size: 1.05rem;
+    color: #DBEAFE;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Graphic Card Preview */
+.visual-graphic-container {
+    position: relative;
+}
+
+.auth-card-main {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+    color: var(--primary-text);
+}
+
+.card-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-bar .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.card-bar .dot.red { background: #EF4444; }
+.card-bar .dot.yellow { background: #F59E0B; }
+.card-bar .dot.green { background: #10B981; }
+
+.bar-title {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--secondary-text);
+    font-weight: 500;
+}
+
+.card-body-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.preview-row {
+    display: flex;
+    gap: 8px;
+}
+
+.chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+}
+.chip.blue { background-color: var(--light-blue); color: var(--primary-blue); }
+.chip.green { background-color: var(--success-light); color: var(--success-green); }
+
+.preview-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--bg-main);
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.icon-box {
+    font-size: 1.1rem;
+}
+
+.item-info strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--primary-text);
+}
+
+.item-info span {
+    font-size: 0.7rem;
+    color: var(--secondary-text);
+}
+
+.tag-status {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--success-green);
+}
+.tag-status.orange { color: var(--warning-orange); }
+
+.floating-pill {
+    position: absolute;
+    background: #FFFFFF;
+    color: var(--primary-text);
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+    animation: floatAnim 4s ease-in-out infinite;
+}
+
+.pill-1 { top: -14px; right: -10px; }
+.pill-2 { bottom: -14px; left: -10px; animation-delay: 2s; }
+
+@keyframes floatAnim {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+
+/* --------------------------------------------------------------------------
+   RIGHT PANEL: AUTH FORM AREA
+   -------------------------------------------------------------------------- */
+.auth-form-side {
+    background-color: #FFFFFF;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.auth-form-container {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.auth-header-nav {
+    margin-bottom: 32px;
+}
+
+.back-home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--secondary-text);
+}
+
+.back-home-link:hover {
+    color: var(--primary-blue);
+}
+
+.auth-form-header {
+    margin-bottom: 28px;
+}
+
+.auth-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-text);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+
+.auth-subtitle {
+    font-size: 0.95rem;
+    color: var(--secondary-text);
+}
+
+/* Alert Banners */
+.auth-alert {
+    display: none;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.auth-alert.error {
+    display: block;
+    background-color: #FEE2E2;
+    color: #991B1B;
+    border: 1px solid #FCA5A5;
+}
+
+.auth-alert.success {
+    display: block;
+    background-color: var(--success-light);
+    color: #065F46;
+    border: 1px solid #6EE7B7;
+}
+
+/* Form Controls */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-text);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    width: 100%;
+    height: 48px;
+    padding: 10px 16px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--primary-text);
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+.form-control:focus {
+    background-color: #FFFFFF;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-control.is-invalid {
+    border-color: #EF4444;
+    background-color: #FEF2F2;
+}
+
+.form-control.is-invalid:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.input-icon {
+    position: absolute;
+    right: 14px;
+    color: var(--secondary-text);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    color: var(--secondary-text);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: var(--primary-text);
+}
+
+.hidden { display: none !important; }
+
+.field-error {
+    font-size: 0.78rem;
+    color: #DC2626;
+    font-weight: 500;
+    min-height: 16px;
+}
+
+/* Options Row (Remember & Forgot) */
+.form-options-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.875rem;
+}
+
+.custom-checkbox-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.custom-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.custom-checkbox-container:hover input ~ .checkmark {
+    border-color: var(--primary-blue);
+}
+
+.custom-checkbox-container input:checked ~ .checkmark {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.checkmark::after {
+    content: "✓";
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: none;
+}
+
+.custom-checkbox-container input:checked ~ .checkmark::after {
+    display: block;
+}
+
+.forgot-password-link {
+    font-weight: 500;
+    color: var(--primary-blue);
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+.btn-block {
+    width: 100%;
+    height: 48px;
+}
+
+.btn-auth {
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+/* Button Loading Spinner */
+.btn-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #FFFFFF;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Shake Animation on Form Error */
+.shake {
+    animation: shakeAnim 0.4s ease-in-out;
+}
+
+@keyframes shakeAnim {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+/* Divider */
+.auth-divider {
+    position: relative;
+    text-align: center;
+    margin: 28px 0;
+}
+
+.auth-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.auth-divider span {
+    position: relative;
+    background-color: #FFFFFF;
+    padding: 0 12px;
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .auth-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-visual-side {
+        padding: 40px 24px;
+        text-align: center;
+    }
+
+    .visual-content {
+        max-width: 100%;
+    }
+
+    .visual-graphic-container {
+        display: none;
+    }
+
+    .auth-form-side {
+        padding: 40px 24px;
+    }
+}

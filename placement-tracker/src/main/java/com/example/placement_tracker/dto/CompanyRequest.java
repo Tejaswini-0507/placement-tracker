@@ -19,8 +19,6 @@ public class CompanyRequest {
     @NotBlank(message = "Company name is required")
     private String name;
 
-    private String logoUrl;
-
     private String website;
 
     @NotBlank(message = "Description is required")

@@ -1,0 +1,114 @@
+/* ==========================================================================
+   CAREERSPACE - BROWSE EXPERIENCES PAGE STYLESHEET
+   Extends: style.css, dashboard.css, experiences.css (shares cards/pills/modal/toast)
+   ========================================================================== */
+
+.picker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+#companyPickerLoading.hidden,
+#companyPickerGrid.hidden,
+#companyPickerEmpty.hidden,
+#companyPickerError.hidden,
+#companyPickerNoResults.hidden {
+    display: none;
+}
+
+.picker-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.picker-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--light-blue);
+}
+
+.picker-card-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--light-blue), #E0E7FF);
+    color: var(--primary-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.picker-card-info { min-width: 0; }
+
+.picker-card-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.picker-card-industry {
+    font-size: 0.75rem;
+    color: var(--secondary-text);
+}
+
+.skeleton-picker-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.skeleton-line {
+    border-radius: 6px;
+    background: linear-gradient(90deg, #EDF1F5 25%, #F8FAFC 37%, #EDF1F5 63%);
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.4s ease infinite;
+}
+
+.skeleton-picker-logo { width: 40px; height: 40px; border-radius: var(--radius-sm); flex-shrink: 0; }
+.skeleton-picker-text { height: 12px; width: 70%; }
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+.browse-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.browse-breadcrumb .dash-section-title {
+    margin: 0;
+}
+
+#browseExpLoading.hidden,
+#browseExpGrid.hidden,
+#browseExpEmpty.hidden,
+#browseExpError.hidden {
+    display: none;
+}
+
+.exp-card {
+    cursor: pointer;
+}

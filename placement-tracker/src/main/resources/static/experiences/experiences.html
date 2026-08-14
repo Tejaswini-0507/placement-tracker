@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - Log and review your interview experiences.">
+    <title>Interview Experiences | CareerSpace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="experiences.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="experiences.html" class="sidebar-link active">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link active">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../profile/profile.html" class="sidebar-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#help" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="dash-main-wrapper">
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">Interview Experiences</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Log and review your interview experiences.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileName">--</strong>
+                            <span id="profileEmail">--</span>
+                            <span class="user-badge" id="profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="../profile/profile.html" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dash-content-container">
+
+            <section class="dash-section">
+                <div class="companies-toolbar">
+                    <div class="toolbar-search-wrapper">
+                        <svg class="toolbar-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="expSearchInput" class="form-control toolbar-search-input" placeholder="Search by company or position...">
+                    </div>
+
+                    <div class="toolbar-filter-wrapper">
+                        <select id="difficultyFilter" class="form-control toolbar-select">
+                            <option value="">All Difficulties</option>
+                            <option value="EASY">Easy</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="HARD">Hard</option>
+                            <option value="EXPERT">Expert</option>
+                        </select>
+                    </div>
+
+                    <div class="toolbar-filter-wrapper">
+                        <select id="resultFilter" class="form-control toolbar-select">
+                            <option value="">All Results</option>
+                            <option value="PASSED">Passed</option>
+                            <option value="FAILED">Failed</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="WAITING_LIST">Waiting List</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" id="addExperienceBtn">
+                        <span>+ Log Experience</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="dash-section">
+                <div id="expLoading" class="experiences-grid"></div>
+
+                <div id="expEmpty" class="empty-state hidden">
+                    <div class="empty-state-icon">💬</div>
+                    <h3>No interview experiences logged yet</h3>
+                    <p>Document your interview rounds, questions asked, and outcomes to build a personal reference for future prep.</p>
+                    <button class="btn btn-primary" id="emptyStateAddBtn">+ Log Your First Experience</button>
+                </div>
+
+                <div id="expError" class="empty-state hidden">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3>Couldn't load experiences</h3>
+                    <p id="expErrorMessage">Something went wrong while fetching data from the server.</p>
+                    <button class="btn btn-secondary" id="expRetryBtn">Try Again</button>
+                </div>
+
+                <div id="expNoResults" class="empty-state hidden">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>No matching experiences</h3>
+                    <p>Try adjusting your search or filter criteria.</p>
+                    <button class="btn btn-secondary" id="expClearFiltersBtn">Clear Filters</button>
+                </div>
+
+                <div id="expGrid" class="experiences-grid hidden"></div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<!-- MODAL: ADD / EDIT EXPERIENCE -->
+<div class="modal-overlay hidden" id="expFormModal">
+    <div class="modal-box modal-box-xl">
+        <div class="modal-header">
+            <h2 id="expFormTitle">Log Interview Experience</h2>
+            <button class="modal-close-btn" id="closeExpFormModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <form id="expForm" class="modal-body" novalidate>
+            <input type="hidden" id="expId" value="">
+            <input type="hidden" id="expCompanyId" value="">
+            <input type="hidden" id="expPositionId" value="">
+
+            <div class="form-group">
+                <label for="expApplicationSelect" class="form-label">From Application *</label>
+                <select id="expApplicationSelect" class="form-control" required>
+                    <option value="" disabled selected>Select an application</option>
+                </select>
+                <span class="field-error" id="expApplicationError"></span>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="expRoundName" class="form-label">Round Name *</label>
+                    <input type="text" id="expRoundName" class="form-control" placeholder="e.g. Technical Round 1" required>
+                    <span class="field-error" id="expRoundNameError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="expRoundNumber" class="form-label">Round Number *</label>
+                    <input type="number" id="expRoundNumber" class="form-control" min="1" step="1" required>
+                    <span class="field-error" id="expRoundNumberError"></span>
+                </div>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="expDateExperienced" class="form-label">Date Experienced *</label>
+                    <input type="date" id="expDateExperienced" class="form-control" required>
+                    <span class="field-error" id="expDateError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="expDifficulty" class="form-label">Difficulty *</label>
+                    <select id="expDifficulty" class="form-control" required>
+                        <option value="" disabled selected>Select difficulty</option>
+                        <option value="EASY">Easy</option>
+                        <option value="MEDIUM">Medium</option>
+                        <option value="HARD">Hard</option>
+                        <option value="EXPERT">Expert</option>
+                    </select>
+                    <span class="field-error" id="expDifficultyError"></span>
+                </div>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="expDuration" class="form-label">Duration (minutes)</label>
+                    <input type="number" id="expDuration" class="form-control" min="1" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="expTotalProblems" class="form-label">Total Problems Asked</label>
+                    <input type="number" id="expTotalProblems" class="form-control" min="0" step="1">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="expQuestionsAsked" class="form-label">Questions Asked (summary) *</label>
+                <textarea id="expQuestionsAsked" class="form-control textarea-control" rows="3" placeholder="Brief summary of what was asked overall..." required></textarea>
+                <span class="field-error" id="expQuestionsAskedError"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="structured-q-header">
+                    <label class="form-label">Structured Questions (optional)</label>
+                    <button type="button" class="btn btn-secondary btn-sm" id="addQuestionRowBtn">+ Add Question</button>
+                </div>
+                <div id="structuredQuestionsList" class="structured-q-list"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="expTopics" class="form-label">Topics</label>
+                <input type="text" id="expTopics" class="form-control" placeholder="e.g. Arrays, Dynamic Programming, System Design (comma separated)">
+            </div>
+
+            <div class="form-group">
+                <label for="expSummary" class="form-label">Experience Summary *</label>
+                <textarea id="expSummary" class="form-control textarea-control" rows="4" placeholder="Describe the overall interview experience..." required></textarea>
+                <span class="field-error" id="expSummaryError"></span>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="expHelpfulResources" class="form-label">Helpful Resources</label>
+                    <textarea id="expHelpfulResources" class="form-control textarea-control" rows="2" placeholder="Links, books, courses that helped..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="expInterviewerFeedback" class="form-label">Interviewer Feedback</label>
+                    <textarea id="expInterviewerFeedback" class="form-control textarea-control" rows="2" placeholder="Any feedback given..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="expResult" class="form-label">Result *</label>
+                    <select id="expResult" class="form-control" required>
+                        <option value="" disabled selected>Select result</option>
+                        <option value="PASSED">Passed</option>
+                        <option value="FAILED">Failed</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="WAITING_LIST">Waiting List</option>
+                    </select>
+                    <span class="field-error" id="expResultError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="expResultDate" class="form-label">Result Received Date</label>
+                    <input type="date" id="expResultDate" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" id="expIsPublic" checked>
+                    <span class="checkmark"></span>
+                    <span class="label-text">Make this experience public (visible to other students browsing this company)</span>
+                </label>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelExpFormBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="submitExpBtn">
+                    <span class="btn-text">Save Experience</span>
+                    <div class="btn-spinner hidden" id="expFormSpinner"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- MODAL: EXPERIENCE DETAIL -->
+<div class="modal-overlay hidden" id="expDetailModal">
+    <div class="modal-box modal-box-xl">
+        <div class="modal-header">
+            <h2 id="detailExpCompany">Company</h2>
+            <button class="modal-close-btn" id="closeExpDetailModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="detail-header-row">
+                <div class="detail-pill-group">
+                    <span class="detail-stat-label">Difficulty</span>
+                    <span class="difficulty-pill" id="detailExpDifficulty">Difficulty</span>
+                </div>
+                <div class="detail-pill-group">
+                    <span class="detail-stat-label">Result</span>
+                    <span class="result-pill" id="detailExpResult">Result</span>
+                </div>
+                <div class="detail-header-info">
+                    <span class="detail-stat-label">Position</span>
+                    <span class="detail-hq" id="detailExpPosition">Position</span>
+                    <span class="detail-stat-label" style="margin-top:6px;">Round</span>
+                    <span class="detail-hq" id="detailExpRound">Round</span>
+                </div>
+            </div>
+
+            <div class="detail-stats-grid">
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Date Experienced</span>
+                    <span class="detail-stat-value" id="detailExpDate">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Duration</span>
+                    <span class="detail-stat-value" id="detailExpDuration">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Problems Asked</span>
+                    <span class="detail-stat-value" id="detailExpProblems">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Visibility</span>
+                    <span class="detail-stat-value" id="detailExpVisibility">--</span>
+                </div>
+            </div>
+
+            <div class="detail-block">
+                <span class="detail-stat-label">Questions Asked</span>
+                <p class="detail-block-text" id="detailExpQuestionsAsked">--</p>
+            </div>
+
+            <div class="detail-block" id="detailStructuredQBlock">
+                <span class="detail-stat-label">Structured Questions</span>
+                <div id="detailStructuredQList" class="structured-q-list"></div>
+            </div>
+
+            <div class="detail-block" id="detailTopicsBlock">
+                <span class="detail-stat-label">Topics</span>
+                <div class="resume-card-tags" id="detailExpTopics"></div>
+            </div>
+
+            <div class="detail-block">
+                <span class="detail-stat-label">Experience Summary</span>
+                <p class="detail-block-text" id="detailExpSummary">--</p>
+            </div>
+
+            <div class="detail-block" id="detailResourcesBlock">
+                <span class="detail-stat-label">Helpful Resources</span>
+                <p class="detail-block-text" id="detailExpResources">--</p>
+            </div>
+
+            <div class="detail-block" id="detailFeedbackBlock">
+                <span class="detail-stat-label">Interviewer Feedback</span>
+                <p class="detail-block-text" id="detailExpFeedback">--</p>
+            </div>
+
+            <div class="vote-row">
+                <button class="btn btn-secondary vote-btn" id="detailUpvoteBtn">👍 <span id="detailUpvoteCount">0</span></button>
+                <button class="btn btn-secondary vote-btn" id="detailDownvoteBtn">👎 <span id="detailDownvoteCount">0</span></button>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="deleteExpBtn">🗑️ Delete</button>
+                <button class="btn btn-primary" id="editExpBtn">✏️ Edit Experience</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL: DELETE CONFIRM -->
+<div class="modal-overlay hidden" id="deleteExpModal">
+    <div class="modal-box modal-box-sm">
+        <div class="modal-body confirm-modal-body">
+            <div class="confirm-icon">🗑️</div>
+            <h3>Delete this experience?</h3>
+            <p>This will permanently remove this interview experience and cannot be undone.</p>
+            <div class="modal-footer confirm-footer">
+                <button class="btn btn-secondary" id="cancelDeleteExpBtn">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteExpBtn">
+                    <span class="btn-text">Delete</span>
+                    <div class="btn-spinner hidden" id="deleteExpSpinner"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../apiCilent.js"></script>
+<script src="experiences.js"></script>
+</body>
+</html>

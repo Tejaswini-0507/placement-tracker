@@ -21,6 +21,8 @@ import java.util.UUID;
 @Table(name = "companies", indexes = {
         @Index(name = "idx_companies_industry", columnList = "industry"),
         @Index(name = "idx_companies_name",columnList = "name")
+},uniqueConstraints = {
+        @UniqueConstraint(name = "uk_company_name_hiring_for",columnNames = {"name , hiring_for"})
 })
 @Data
 @Builder
@@ -35,9 +37,6 @@ public class Company {
 
     @Column(nullable = false,unique = true)
     private String name;
-
-    @Column(name = "logo_url")
-    private String logoUrl;
 
     private String website;
 
@@ -65,6 +64,10 @@ public class Company {
 
     @Column(nullable = false, name = "created_at", updatable = false)
     private Long createdAt;
+
+    @Column(nullable = false, name = "created_by_student")
+    private UUID createdStudentId;
+
 
     @OneToMany(mappedBy = "company" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

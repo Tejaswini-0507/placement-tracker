@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - Get help, report an issue, or contact the team.">
+    <title>Help | CareerSpace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="help.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile" class="sidebar-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#settings" class="sidebar-link">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-label">Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="help.html" class="sidebar-link active">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="dash-main-wrapper">
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">Help</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Need a hand? Report an issue or reach out to us.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileName">--</strong>
+                            <span id="profileEmail">--</span>
+                            <span class="user-badge" id="profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="#profile" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dash-content-container">
+
+            <section class="dash-section">
+                <div class="section-heading-row">
+                    <div>
+                        <h2 class="dash-section-title">How can we help?</h2>
+                        <p class="dash-section-sub">Report a problem or get in touch with the CareerSpace team.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-2 help-grid">
+
+                    <!-- CARD 1: SUBMIT A REPORT -->
+                    <div class="help-card" id="submitReportCard">
+                        <div class="help-card-icon blue">🐞</div>
+                        <h3>Submit a Report</h3>
+                        <p>Found a bug, broken link, or something not working as expected? Let us know through our report form.</p>
+                        <span class="help-card-cta">
+                            Open Report Form
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </span>
+                    </div>
+
+                    <!-- CARD 2: CONTACT US -->
+                    <div class="help-card" id="contactUsCard">
+                        <div class="help-card-icon purple">✉️</div>
+                        <h3>Contact Us</h3>
+                        <p>Have a question, suggestion, or need direct support? Reach out to us by email and we'll get back to you.</p>
+                        <span class="help-card-cta">
+                            careerspace05@gmail.com
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </span>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<script src="../apiCilent.js"></script>
+<script src="help.js"></script>
+</body>
+</html>

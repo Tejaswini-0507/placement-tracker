@@ -31,6 +31,8 @@ public class InterviewExperienceResponse {
 
     private String interviewRoundName;
 
+    private Integer interviewRoundNumber;
+
     private Long dateExperienced;
 
     private String difficultyRating;

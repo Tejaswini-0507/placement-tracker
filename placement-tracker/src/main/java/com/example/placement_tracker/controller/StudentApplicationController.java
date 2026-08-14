@@ -102,5 +102,19 @@ public class StudentApplicationController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteApplication(@PathVariable UUID id){
+        try{
+            studentApplicationService.deleteApplication(id);
+            return ResponseEntity.ok().body(new ErrorResponse("SUCCESS","Application deleted successfully",System.currentTimeMillis()));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(404)
+                    .body(new ErrorResponse("NOT_FOUND","Application does not exist",System.currentTimeMillis()));
+        }catch (Exception e){
+            return ResponseEntity.status(500)
+                    .body(new ErrorResponse("INTERNAL_ERROR","Failed to delete application",System.currentTimeMillis()));
+        }
+    }
+
 
 }

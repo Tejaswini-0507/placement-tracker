@@ -45,11 +45,15 @@ public class InterviewExperienceService {
     ExperienceSearchRepository experienceSearchRepository;
 
     @Autowired
+    InterviewRoundConfigService interviewRoundConfigService;
+
+    @Autowired
     ObjectMapper objectMapper;
 
     //Create
     @Transactional
     public InterviewExperienceResponse createInterviewExperience(InterviewExperienceRequest request){
+
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
@@ -60,60 +64,64 @@ public class InterviewExperienceService {
        Company company = companyRepository.findById(request.getCompanyId())
                .orElseThrow(() -> new IllegalArgumentException("Company not found"));
 
-        StudentApplication application = applicationRepository.findByStudent_IdAndCompany_IdAndPosition_Id(student.getId(),company.getId(),request.getPositionId())
+       StudentApplication application = applicationRepository.findByStudent_IdAndCompany_IdAndPosition_Id(student.getId(),company.getId(),request.getPositionId())
                 .orElseThrow(() -> new IllegalArgumentException("Application Not found"));
 
-       InterviewRoundConfig roundConfig = interviewRoundConfigRepository.findById(request.getInterviewRoundConfigId())
-               .orElseThrow(() -> new IllegalArgumentException("Round not found"));
+       InterviewRoundConfig roundConfig = interviewRoundConfigService.getOrCreateInterviewRound(
+                application.getCompany(), request.getRoundName(), request.getRoundNumber());
 
-       JsonNode questionsJsonNode = null;
-       if(request.getQuestionsJson() != null){
-           try{
-               questionsJsonNode = objectMapper.readTree(request.getQuestionsJson());
-           }catch (Exception e){
-               throw new IllegalArgumentException("Invalid JSON for questions: "+e.getMessage());
-           }
+       if(interviewExperienceRepository.findByStudentApplication_IdAndRoundNumber(application.getId(), request.getRoundNumber()).isPresent()){
+           throw new IllegalArgumentException("Experience exists please update the current experience instead of creating new ");
        }
+       else {
 
-       JsonNode topicsJsonNode = null;
-       if(request.getTopics() != null){
-           try{
-               String[] topicArray = request.getTopics().split(",");
-               topicsJsonNode = objectMapper.valueToTree(topicArray);
-           }catch (Exception e){
-               e.printStackTrace();
-               throw new IllegalArgumentException("Invalid format for topics",e);
+           JsonNode questionsJsonNode = null;
+           if (request.getQuestionsJson() != null) {
+               try {
+                   questionsJsonNode = objectMapper.readTree(request.getQuestionsJson());
+               } catch (Exception e) {
+                   throw new IllegalArgumentException("Invalid JSON for questions: " + e.getMessage());
+               }
            }
+
+           JsonNode topicsJsonNode = null;
+           if (request.getTopics() != null) {
+               try {
+                   String[] topicArray = request.getTopics().split(",");
+                   topicsJsonNode = objectMapper.valueToTree(topicArray);
+               } catch (Exception e) {
+                   e.printStackTrace();
+                   throw new IllegalArgumentException("Invalid format for topics", e);
+               }
+           }
+
+           InterviewExperience interviewExperience = InterviewExperience.builder()
+                   .student(student)
+                   .company(application.getCompany())
+                   .studentApplication(application)
+                   .interviewRoundConfig(roundConfig)
+                   .dateExperienced(request.getDateExperienced())
+                   .difficultyRating(DifficultyLevel.valueOf(request.getDifficultyRating()))
+                   .durationMinutes(request.getDurationMinutes())
+                   .totalProblemsAsked(request.getTotalProblemsAsked())
+                   .questionsAsked(request.getQuestionsAsked())
+                   .questionsJson(questionsJsonNode)
+                   .topics(topicsJsonNode)
+                   .experienceSummary(request.getExperienceSummary())
+                   .helpfulResources(request.getHelpfulResources())
+                   .interviewerFeedback(request.getInterviewerFeedback())
+                   .result(InterviewResult.valueOf(request.getResult()))
+                   .resultReceivedDate(request.getResultReceivedDate())
+                   .isPublic(request.getIsPublic() != null ? request.getIsPublic() : true)
+                   .build();
+
+           interviewExperience = interviewExperienceRepository.save(interviewExperience);
+
+           ExperienceDocument document = convertToDocument(interviewExperience);
+           experienceSearchRepository.save(document);
+
+           return entityToResponse(interviewExperience);
        }
-
-
-
-       InterviewExperience interviewExperience = InterviewExperience.builder()
-               .student(student)
-               .company(company)
-               .studentApplication(application)
-               .interviewRoundConfig(roundConfig)
-               .dateExperienced(request.getDateExperienced())
-               .difficultyRating(DifficultyLevel.valueOf(request.getDifficultyRating()))
-               .totalProblemsAsked(request.getTotalProblemsAsked())
-               .questionsAsked(request.getQuestionsAsked())
-               .questionsJson(questionsJsonNode)
-               .topics(topicsJsonNode)
-               .experienceSummary(request.getExperienceSummary())
-               .helpfulResources(request.getHelpfulResources())
-               .interviewerFeedback(request.getInterviewerFeedback())
-               .result(InterviewResult.valueOf(request.getResult()))
-               .resultReceivedDate(request.getResultReceivedDate())
-               .isPublic(request.getIsPublic() != null ? request.getIsPublic() : true)
-               .build();
-
-            interviewExperience = interviewExperienceRepository.save(interviewExperience);
-
-            ExperienceDocument document = convertToDocument(interviewExperience);
-            experienceSearchRepository.save(document);
-
-            return entityToResponse(interviewExperience);
-
     }
 
     //READ ONE
@@ -157,7 +165,7 @@ public class InterviewExperienceService {
     public InterviewExperienceResponse updateInterviewExperience(UUID id , InterviewExperienceRequest request){
         //Check experience exists or not
         InterviewExperience interviewExperience = interviewExperienceRepository.findById(id)
-                .orElseThrow(() ->  new IllegalArgumentException("Expereicne not found"));
+                .orElseThrow(() ->  new IllegalArgumentException("Experience not found"));
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
@@ -165,6 +173,9 @@ public class InterviewExperienceService {
         //Check student exists or not
         Student currentStudent = studentRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
+
+        Company company = interviewExperience.getCompany();
 
         //Check whether logged in student and entered student id are same or not
         if(!interviewExperience.getStudent().getId().equals(currentStudent.getId())){
@@ -190,10 +201,11 @@ public class InterviewExperienceService {
         }
 
 
-        InterviewRoundConfig round = interviewRoundConfigRepository.findById(request.getInterviewRoundConfigId())
-                        .orElseThrow(()->  new IllegalArgumentException("Interview Round not found"));
+        InterviewRoundConfig roundConfig = interviewRoundConfigService.getOrCreateInterviewRound(
+                company, request.getRoundName(), request.getRoundNumber());
 
-        interviewExperience.setInterviewRoundConfig(round);
+        interviewExperience.setInterviewRoundConfig(roundConfig);
+        interviewExperience.setRoundNumber(request.getRoundNumber());
         interviewExperience.setDateExperienced(request.getDateExperienced());
         interviewExperience.setDifficultyRating(DifficultyLevel.valueOf(request.getDifficultyRating()));
         interviewExperience.setDurationMinutes(request.getDurationMinutes());
@@ -221,13 +233,22 @@ public class InterviewExperienceService {
         return entityToResponse(interviewExperience);
     }
 
-    //UPVOTE
+    //DOWNVOTE
     public InterviewExperienceResponse downvoteExperience(UUID id){
         InterviewExperience interviewExperience = interviewExperienceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Experience not found"));
         interviewExperience.setDownvotes((interviewExperience.getDownvotes() != null ? interviewExperience.getDownvotes() : 0) + 1);
         interviewExperience =interviewExperienceRepository.save(interviewExperience);
         return entityToResponse(interviewExperience);
+    }
+
+    //DELETE
+    public void deleteExperience(UUID id){
+        InterviewExperience interviewExperience = interviewExperienceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Experience not found"));
+        interviewExperienceRepository.delete(interviewExperience);
+        experienceSearchRepository.deleteById(interviewExperience.getId());
+
     }
 
     //HELPER
@@ -244,8 +265,10 @@ public class InterviewExperienceService {
                 .positionName(interviewExperience.getStudentApplication().getPosition().getTitle())
                 .interviewRoundConfigId(interviewExperience.getInterviewRoundConfig().getId())
                 .interviewRoundName(interviewExperience.getInterviewRoundConfig().getRoundName())
+                .interviewRoundNumber(interviewExperience.getInterviewRoundConfig().getRoundNumber())
                 .dateExperienced(interviewExperience.getDateExperienced())
                 .difficultyRating(String.valueOf(difficultyLevel))
+                .durationMinutes(interviewExperience.getDurationMinutes())
                 .totalProblemsAsked(interviewExperience.getTotalProblemsAsked())
                 .questionsAsked(interviewExperience.getQuestionsAsked())
                 .questionsJson(interviewExperience.getQuestionsJson())

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace Student Dashboard - Monitor your placement journey, application pipeline, resume versions, and interview preparation.">
+    <title>Student Dashboard | CareerSpace</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Base Styles & Dashboard Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+
+<!-- Mobile Sidebar Backdrop Overlay -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <!-- ==========================================
+         1. FIXED LEFT SIDEBAR
+         ========================================== -->
+    <aside class="dash-sidebar" id="dashSidebar">
+        <!-- Sidebar Top: Brand Logo -->
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="sidebar-link active" data-section="dashboard">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link" data-section="applications">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link" data-section="resumes">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link" >
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link" data-section="discussions">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link" data-section="analytics">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../profile/profile.html" class="sidebar-link" data-section="profile">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Sidebar Bottom Links -->
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../help/help.html" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+
+    <!-- ==========================================
+         2. MAIN DASHBOARD WRAPPER (TOPNAV + CONTENT)
+         ========================================== -->
+    <div class="dash-main-wrapper">
+
+        <!-- FIXED TOP NAVIGATION -->
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title" id="pageTitle">Dashboard</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Welcome Back! Here's an overview of your placement journey.</span>
+                    <span class="last-updated-badge" id="lastUpdated">Last updated: just now</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <!-- User Profile Avatar & Dropdown -->
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id = "avatarCircle">--</div>
+                        <span class="user-display-name" id = "userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id = "profileName">--</strong>
+                            <span id = "profileEmail">--</span>
+                            <span class="user-badge" id = "profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="../profile/profile.html" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="dash-content-container">
+
+            <!-- IMPORTANT PLATFORM NOTE -->
+            <section class="dash-section">
+                <div class="platform-note-banner">
+                    <span class="platform-note-icon">ℹ️</span>
+                    <span class="platform-note-text">CareerSpace helps you <strong>track</strong> applications you've made elsewhere - it does not submit job applications on your behalf. Visit each company's own careers page to actually apply.</span>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 1: PLACEMENT OVERVIEW (CIRCULAR CARDS)
+                 ========================================== -->
+            <section class="dash-section">
+                <div class="section-heading-row">
+                    <div>
+                        <h2 class="dash-section-title">Placement Overview</h2>
+                        <p class="dash-section-sub">Real-time breakdown of your placement conversion rates</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-4 overview-grid" id="circularOverviewGrid">
+                    <!-- Card 1: Interview / Success Rate -->
+                    <div class="overview-card">
+                        <div class="circle-progress-wrapper">
+                            <svg class="circle-svg" viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="42"></circle>
+                                <circle class="circle-fill stroke-blue" cx="50" cy="50" r="42" data-percentage="0" id="circleInterview"></circle>
+                            </svg>
+                            <div class="circle-text">
+                                <span class="percent-val" id="percentInterview">0%</span>
+                            </div>
+                        </div>
+                        <div class="overview-info">
+                            <h3>Application Success Rate</h3>
+                            <p>Applications resulting in testing or interviews</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Offer Rate -->
+                    <div class="overview-card">
+                        <div class="circle-progress-wrapper">
+                            <svg class="circle-svg" viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="42"></circle>
+                                <circle class="circle-fill stroke-green" cx="50" cy="50" r="42" data-percentage="0" id="circleOffer"></circle>
+                            </svg>
+                            <div class="circle-text">
+                                <span class="percent-val" id="percentOffer">0%</span>
+                            </div>
+                        </div>
+                        <div class="overview-info">
+                            <h3>Offer Rate</h3>
+                            <p>Conversion rate from applications to job offers</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Interview Rate -->
+                    <div class="overview-card">
+                        <div class="circle-progress-wrapper">
+                            <svg class="circle-svg" viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="42"></circle>
+                                <circle class="circle-fill stroke-purple" cx="50" cy="50" r="42" data-percentage="0" id="circleSuccess"></circle>
+                            </svg>
+                            <div class="circle-text">
+                                <span class="percent-val" id="percentSuccess">0%</span>
+                            </div>
+                        </div>
+                        <div class="overview-info">
+                            <h3>Interview Rate</h3>
+                            <p>Shortlisted candidates selected for technical rounds</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Rejection Rate -->
+                    <div class="overview-card">
+                        <div class="circle-progress-wrapper">
+                            <svg class="circle-svg" viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="42"></circle>
+                                <circle class="circle-fill stroke-red" cx="50" cy="50" r="42" data-percentage="0" id="circleRejected"></circle>
+                            </svg>
+                            <div class="circle-text">
+                                <span class="percent-val" id="percentRejected">0%</span>
+                            </div>
+                        </div>
+                        <div class="overview-info">
+                            <h3>Rejection Rate</h3>
+                            <p>Applications closed or archived without offer</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+<!--            &lt;!&ndash; ==========================================-->
+<!--                 SECTION 2: STATISTICS CARDS-->
+<!--                 ========================================== &ndash;&gt;-->
+<!--            <section class="dash-section">-->
+<!--                <div class="section-heading-row">-->
+<!--                    <h2 class="dash-section-title">Key Performance Indicators</h2>-->
+<!--                </div>-->
+
+<!--                <div class="grid grid-4 stats-cards-grid" id="statsGrid">-->
+<!--                    &lt;!&ndash; Stat Card 1 &ndash;&gt;-->
+<!--                    <div class="stat-metric-card">-->
+<!--                        <div class="metric-head">-->
+<!--                            <span class="metric-icon blue">💼</span>-->
+<!--                            <span class="metric-title">Total Applications</span>-->
+<!--                        </div>-->
+<!--                        <div class="metric-body">-->
+<!--                            <span class="metric-num counter" data-target="0" id="kpiTotalApplications">0</span>-->
+<!--                            <span class="metric-desc" id="kpiTotalAppsDesc">—</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Stat Card 2 &ndash;&gt;-->
+<!--                    <div class="stat-metric-card">-->
+<!--                        <div class="metric-head">-->
+<!--                            <span class="metric-icon green">🎉</span>-->
+<!--                            <span class="metric-title">Offers</span>-->
+<!--                        </div>-->
+<!--                        <div class="metric-body">-->
+<!--                            <span class="metric-num counter" data-target="0" id="kpiOffers">0</span>-->
+<!--                            <span class="metric-desc" id="kpiOffersDesc">—</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Stat Card 3 &ndash;&gt;-->
+<!--                    <div class="stat-metric-card">-->
+<!--                        <div class="metric-head">-->
+<!--                            <span class="metric-icon purple">🗓️</span>-->
+<!--                            <span class="metric-title">Interviews</span>-->
+<!--                        </div>-->
+<!--                        <div class="metric-body">-->
+<!--                            <span class="metric-num counter" data-target="0" id="kpiInterviews">0</span>-->
+<!--                            <span class="metric-desc">Includes offer-stage applications</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Stat Card 4 &ndash;&gt;-->
+<!--                    <div class="stat-metric-card">-->
+<!--                        <div class="metric-head">-->
+<!--                            <span class="metric-icon sky">📩</span>-->
+<!--                            <span class="metric-title">Applied</span>-->
+<!--                        </div>-->
+<!--                        <div class="metric-body">-->
+<!--                            <span class="metric-num counter" data-target="0" id="kpiApplied">0</span>-->
+<!--                            <span class="metric-desc">Not yet progressed to interview</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Stat Card 5 &ndash;&gt;-->
+<!--                    <div class="stat-metric-card">-->
+<!--                        <div class="metric-head">-->
+<!--                            <span class="metric-icon red">❌</span>-->
+<!--                            <span class="metric-title">Rejected</span>-->
+<!--                        </div>-->
+<!--                        <div class="metric-body">-->
+<!--                            <span class="metric-num counter" data-target="0" id="kpiRejected">0</span>-->
+<!--                            <span class="metric-desc">Archived records</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Stat Card 6 &ndash;&gt;-->
+<!--                    <div class="stat-metric-card">-->
+<!--                        <div class="metric-head">-->
+<!--                            <span class="metric-icon orange">📖</span>-->
+<!--                            <span class="metric-title">Interview Experiences</span>-->
+<!--                        </div>-->
+<!--                        <div class="metric-body">-->
+<!--                            <span class="metric-num counter" data-target="0" id="kpiExperiences">0</span>-->
+<!--                            <span class="metric-desc">Shared & saved logs</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Stat Card 7 &ndash;&gt;-->
+<!--                    <div class="stat-metric-card">-->
+<!--                        <div class="metric-head">-->
+<!--                            <span class="metric-icon indigo">📄</span>-->
+<!--                            <span class="metric-title">Resume Versions</span>-->
+<!--                        </div>-->
+<!--                        <div class="metric-body">-->
+<!--                            <span class="metric-num counter" data-target="0" id="kpiResumes">0</span>-->
+<!--                            <span class="metric-desc">Tailored PDF profiles</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+
+
+            <!-- ==========================================
+                 SECTION 3 & 4: SPLIT ROW (ANALYTICS & RECENT APPS)
+                 ========================================== -->
+            <div class="dash-split-grid">
+
+                <!-- SECTION 3: APPLICATION STATUS DISTRIBUTION -->
+                <section class="dash-section content-panel analytics-panel" id="analytics">
+                    <div class="panel-header-row">
+                        <h2 class="dash-section-title">Application Status Distribution</h2>
+                        <span class="panel-tag">Live Pipeline</span>
+                    </div>
+
+                    <div class="analytics-chart-container">
+                        <div class="chart-bars-wrapper" id="statusChartBars">
+                            <!-- Bars injected by dashboard.js -->
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- SECTION 4: RECENT APPLICATIONS TABLE -->
+                <section class="dash-section content-panel table-panel" id="applications">
+                    <div class="panel-header-row">
+                        <h2 class="dash-section-title">Recent Applications</h2>
+                        <a href="../applications/applications.html" class="btn btn-secondary btn-sm" id="addAppBtn">+ Track Application</a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="dash-table">
+                            <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Created On</th>
+                                <th>Resume Version</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="recentAppsTbody">
+                            <!-- Populated dynamically via dashboard.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+
+
+            <!-- ==========================================
+                 SECTION 5 & 6: SPLIT ROW (EXPERIENCES & RESUMES)
+                 ========================================== -->
+            <div class="dash-split-grid margin-top">
+
+                <!-- SECTION 5: RECENT INTERVIEW EXPERIENCES -->
+                <section class="dash-section content-panel" id="experiences">
+                    <div class="panel-header-row">
+                        <h2 class="dash-section-title">Recent Interview Experiences</h2>
+                        <a href="../experiences/experiences.html" class="link-more">View All →</a>
+                    </div>
+
+                    <div class="experiences-timeline" id="experiencesTimeline">
+                        <!-- Populated dynamically via dashboard.js -->
+                    </div>
+                </section>
+
+
+                <!-- SECTION 6: RESUME VERSIONS -->
+                <section class="dash-section content-panel" id="resumes">
+                    <div class="panel-header-row">
+                        <h2 class="dash-section-title">Resume Versions</h2>
+                        <a href="../resumes/resumes.html" class="btn btn-secondary btn-sm">+ Upload Resume</a>
+                    </div>
+
+                    <div class="resume-cards-list" id="resumesList">
+                        <!-- Populated dynamically via dashboard.js -->
+                    </div>
+                </section>
+
+            </div>
+
+
+            <!-- ==========================================
+                 SECTION 7: QUICK ACTIONS
+                 ========================================== -->
+            <section class="dash-section margin-top">
+                <div class="section-heading-row">
+                    <h2 class="dash-section-title">Quick Actions</h2>
+                    <p class="dash-section-sub">Speed up your daily placement management workflow</p>
+                </div>
+
+                <div class="grid grid-4 quick-actions-grid">
+                    <div class="action-card" id="actionTrackApp">
+                        <div class="action-icon blue">➕</div>
+                        <h3>Track New Application</h3>
+                        <p>Log job details, interview rounds, and target company links.</p>
+                    </div>
+
+                    <div class="action-card" id="actionUploadResume">
+                        <div class="action-icon indigo">📤</div>
+                        <h3>Upload Resume Version</h3>
+                        <p>Store specialized PDFs for Software, Product, or Analyst roles.</p>
+                    </div>
+
+                    <div class="action-card" id="actionBrowseCompanies">
+                        <div class="action-icon sky">🏢</div>
+                        <h3>Browse Companies</h3>
+                        <p>Explore eligibility criteria, hiring trends, and past question banks.</p>
+                    </div>
+
+                    <div class="action-card" id="actionReadExp">
+                        <div class="action-icon purple">📖</div>
+                        <h3>Read Experiences</h3>
+                        <p>Learn from authentic senior test feedback and interview patterns.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<!-- Dashboard Logic Script -->
+<script src="../apiCilent.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

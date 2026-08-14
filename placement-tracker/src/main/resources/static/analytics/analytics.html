@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - Your placement progress analytics.">
+    <title>Analytics | CareerSpace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="analytics.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="analytics.html" class="sidebar-link active">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../profile/profile.html" class="sidebar-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#help" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="dash-main-wrapper">
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">Analytics</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Your placement progress at a glance.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileName">--</strong>
+                            <span id="profileEmail">--</span>
+                            <span class="user-badge" id="profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="#profile" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dash-content-container">
+
+            <!-- LOADING / ERROR STATES -->
+            <div id="analyticsLoading" class="empty-state">
+                <div class="empty-state-icon">📈</div>
+                <h3>Loading your analytics...</h3>
+            </div>
+
+            <div id="analyticsError" class="empty-state hidden">
+                <div class="empty-state-icon">⚠️</div>
+                <h3>Couldn't load analytics</h3>
+                <p id="analyticsErrorMessage">Something went wrong while fetching your data.</p>
+                <button class="btn btn-secondary" id="analyticsRetryBtn">Try Again</button>
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div id="analyticsContent" class="hidden">
+
+                <!-- KPI CARDS -->
+                <section class="dash-section">
+                    <div class="grid grid-5 kpi-grid">
+                        <div class="stat-metric-card">
+                            <div class="metric-head"><span class="metric-icon blue">💼</span><span class="metric-title">Total Applications</span></div>
+                            <div class="metric-body"><span class="metric-num" id="kpiTotalApplications">0</span></div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="metric-head"><span class="metric-icon green">🎯</span><span class="metric-title">Success Rate</span></div>
+                            <div class="metric-body"><span class="metric-num" id="kpiSuccessRate">0%</span></div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="metric-head"><span class="metric-icon purple">💬</span><span class="metric-title">Total Experiences</span></div>
+                            <div class="metric-body"><span class="metric-num" id="kpiTotalExperiences">0</span></div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="metric-head"><span class="metric-icon orange">⚡</span><span class="metric-title">Avg Difficulty</span></div>
+                            <div class="metric-body"><span class="metric-num" id="kpiAvgDifficulty">--</span></div>
+                        </div>
+                        <div class="stat-metric-card">
+                            <div class="metric-head"><span class="metric-icon indigo">📄</span><span class="metric-title">Resume Versions</span></div>
+                            <div class="metric-body"><span class="metric-num" id="kpiTotalResumes">0</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CHARTS ROW 1 -->
+                <div class="dash-split-grid margin-top">
+                    <section class="dash-section content-panel">
+                        <div class="panel-header-row">
+                            <h2 class="dash-section-title">Application Status Distribution</h2>
+                        </div>
+                        <div id="applicationsChartEmpty" class="chart-empty hidden">No applications tracked yet.</div>
+                        <div class="chart-container">
+                            <canvas id="applicationStatusChart"></canvas>
+                        </div>
+                    </section>
+
+                    <section class="dash-section content-panel">
+                        <div class="panel-header-row">
+                            <h2 class="dash-section-title">Interview Outcomes</h2>
+                        </div>
+                        <div id="outcomesChartEmpty" class="chart-empty hidden">No interview experiences logged yet.</div>
+                        <div class="chart-container">
+                            <canvas id="outcomesChart"></canvas>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- CHARTS ROW 2 -->
+                <section class="dash-section content-panel margin-top">
+                    <div class="panel-header-row">
+                        <h2 class="dash-section-title">Experiences by Company</h2>
+                    </div>
+                    <div id="companyChartEmpty" class="chart-empty hidden">No interview experiences logged yet.</div>
+                    <div class="chart-container chart-container-wide">
+                        <canvas id="experiencesByCompanyChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- RESUME VERSIONS TABLE -->
+                <section class="dash-section content-panel margin-top">
+                    <div class="panel-header-row">
+                        <h2 class="dash-section-title">Resume Versions</h2>
+                        <a href="../resumes/resumes.html" class="link-more">Manage Resumes →</a>
+                    </div>
+                    <div id="resumesTableEmpty" class="chart-empty hidden">No resumes uploaded yet.</div>
+                    <div class="table-responsive" id="resumesTableWrapper">
+                        <table class="dash-table">
+                            <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>File</th>
+                                <th>Size</th>
+                                <th>Notes</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="resumesTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="../apiCilent.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - Browse public interview experiences shared by other students.">
+    <title>Browse Experiences | CareerSpace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="../experiences/experiences.css">
+    <link rel="stylesheet" href="browse-experiences.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="browse-experiences.html" class="sidebar-link active">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../profile/profile.html" class="sidebar-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#help" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="dash-main-wrapper">
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">Browse Experiences</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Explore public interview experiences shared by other students.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileName">--</strong>
+                            <span id="profileEmail">--</span>
+                            <span class="user-badge" id="profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="../profile/profile.html" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dash-content-container">
+
+            <!-- STEP 1: COMPANY PICKER -->
+            <section class="dash-section" id="companyPickerSection">
+                <div class="companies-toolbar">
+                    <div class="toolbar-search-wrapper">
+                        <svg class="toolbar-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="companyPickerSearch" class="form-control toolbar-search-input" placeholder="Search companies...">
+                    </div>
+                </div>
+
+                <div id="companyPickerLoading" class="picker-grid"></div>
+                <div id="companyPickerEmpty" class="empty-state hidden">
+                    <div class="empty-state-icon">🏢</div>
+                    <h3>No companies yet</h3>
+                    <p>Once companies are added, you'll be able to browse their public interview experiences here.</p>
+                </div>
+                <div id="companyPickerError" class="empty-state hidden">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3>Couldn't load companies</h3>
+                    <p id="companyPickerErrorMessage"></p>
+                    <button class="btn btn-secondary" id="companyPickerRetryBtn">Try Again</button>
+                </div>
+                <div id="companyPickerNoResults" class="empty-state hidden">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>No matching companies</h3>
+                    <p>Try a different search term.</p>
+                </div>
+                <div id="companyPickerGrid" class="picker-grid hidden"></div>
+            </section>
+
+            <!-- STEP 2: EXPERIENCES FOR SELECTED COMPANY -->
+            <section class="dash-section hidden" id="companyExperiencesSection">
+                <div class="browse-breadcrumb">
+                    <button class="btn btn-secondary btn-sm" id="changeCompanyBtn">← Change Company</button>
+                    <h2 class="dash-section-title" id="selectedCompanyName">Company</h2>
+                </div>
+
+                <div id="browseExpLoading" class="experiences-grid"></div>
+                <div id="browseExpEmpty" class="empty-state hidden">
+                    <div class="empty-state-icon">💬</div>
+                    <h3>No public experiences yet for this company</h3>
+                    <p>Be the first to log an interview experience for this company from the Interview Experiences page.</p>
+                </div>
+                <div id="browseExpError" class="empty-state hidden">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3>Couldn't load experiences</h3>
+                    <p id="browseExpErrorMessage"></p>
+                    <button class="btn btn-secondary" id="browseExpRetryBtn">Try Again</button>
+                </div>
+                <div id="browseExpGrid" class="experiences-grid hidden"></div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+
+<!-- MODAL: EXPERIENCE DETAIL (READ-ONLY, VOTE ENABLED) -->
+<div class="modal-overlay hidden" id="browseDetailModal">
+    <div class="modal-box modal-box-xl">
+        <div class="modal-header">
+            <h2 id="browseDetailCompany">Company</h2>
+            <button class="modal-close-btn" id="closeBrowseDetailModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="detail-header-row">
+                <div class="detail-pill-group">
+                    <span class="detail-stat-label">Difficulty</span>
+                    <span class="difficulty-pill" id="browseDetailDifficulty">Difficulty</span>
+                </div>
+                <div class="detail-pill-group">
+                    <span class="detail-stat-label">Result</span>
+                    <span class="result-pill" id="browseDetailResult">Result</span>
+                </div>
+                <div class="detail-header-info">
+                    <span class="detail-stat-label">Position</span>
+                    <span class="detail-hq" id="browseDetailPosition">Position</span>
+                    <span class="detail-stat-label" style="margin-top:6px;">Round</span>
+                    <span class="detail-hq" id="browseDetailRound">Round</span>
+                </div>
+            </div>
+
+            <div class="detail-stats-grid">
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Date Experienced</span>
+                    <span class="detail-stat-value" id="browseDetailDate">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Duration</span>
+                    <span class="detail-stat-value" id="browseDetailDuration">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Problems Asked</span>
+                    <span class="detail-stat-value" id="browseDetailProblems">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Shared By</span>
+                    <span class="detail-stat-value" id="browseDetailStudent">--</span>
+                </div>
+            </div>
+
+            <div class="detail-block">
+                <span class="detail-stat-label">Questions Asked</span>
+                <p class="detail-block-text" id="browseDetailQuestionsAsked">--</p>
+            </div>
+
+            <div class="detail-block" id="browseDetailStructuredQBlock">
+                <span class="detail-stat-label">Structured Questions</span>
+                <div id="browseDetailStructuredQList" class="structured-q-list"></div>
+            </div>
+
+            <div class="detail-block" id="browseDetailTopicsBlock">
+                <span class="detail-stat-label">Topics</span>
+                <div class="resume-card-tags" id="browseDetailTopics"></div>
+            </div>
+
+            <div class="detail-block">
+                <span class="detail-stat-label">Experience Summary</span>
+                <p class="detail-block-text" id="browseDetailSummary">--</p>
+            </div>
+
+            <div class="detail-block" id="browseDetailResourcesBlock">
+                <span class="detail-stat-label">Helpful Resources</span>
+                <p class="detail-block-text" id="browseDetailResources">--</p>
+            </div>
+
+            <div class="vote-row">
+                <button class="btn btn-secondary vote-btn" id="browseUpvoteBtn">👍 <span id="browseUpvoteCount">0</span></button>
+                <button class="btn btn-secondary vote-btn" id="browseDownvoteBtn">👎 <span id="browseDownvoteCount">0</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../apiCilent.js"></script>
+<script src="browse-experiences.js"></script>
+</body>
+</html>

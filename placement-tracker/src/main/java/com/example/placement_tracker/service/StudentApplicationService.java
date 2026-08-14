@@ -53,14 +53,10 @@ public class StudentApplicationService {
         Company company = companyRepository.findById(request.getCompanyId())
                 .orElseThrow(()-> new IllegalArgumentException("Company not found"));
 
-
-
         Position position = positionService.getOrCreatePosition(
                 company,
-                request.getPositionTitle(),
-                request.getLocation()
+                company.getHiringFor()
         );
-
 
         //Check if student already applied
         if(studentApplicationRepository
@@ -165,6 +161,20 @@ public class StudentApplicationService {
     }
 
 
+    @Transactional
+    public void deleteApplication(UUID id){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        if(!studentApplicationRepository.findById(id).isPresent()){
+            throw new IllegalArgumentException("Application does not exist");
+        }else{
+            studentApplicationRepository.deleteById(id);
+        }
+
+    }
+
+
     //HELPER
     @Transactional
     public StudentApplicationResponse entityToResponse(StudentApplication application){
@@ -175,6 +185,7 @@ public class StudentApplicationService {
                 .studentName(application.getStudent().getName())
                 .companyId(application.getCompany().getId())
                 .companyName(application.getCompany().getName())
+                .positionId(application.getPosition().getId())
                 .positionTitle(application.getPosition().getTitle())
                 .status(String.valueOf(status))
                 .statusUpdatedAt(application.getStatusUpdatedAt())

@@ -6,6 +6,7 @@ import com.example.placement_tracker.entity.Company;
 import com.example.placement_tracker.entity.InterviewExperience;
 import com.example.placement_tracker.entity.TopicFrequencyAnalytics;
 import com.example.placement_tracker.enums.DifficultyLevel;
+import com.example.placement_tracker.enums.InterviewResult;
 import com.example.placement_tracker.repository.CompanyRepository;
 import com.example.placement_tracker.repository.InterviewExperienceRepository;
 import com.example.placement_tracker.repository.TopicFrequencyAnalyticsRepository;
@@ -176,7 +177,7 @@ public class AnalyticsService {
                 .orElse(0);
 
         long passedCount = experiences.stream()
-                .filter(exp -> "PASSED".equals(exp.getResult()))
+                .filter(exp -> exp.getResult() == InterviewResult.PASSED)
                 .count();
         int passRate = totalExperiences > 0 ? (int) (passedCount * 100 / totalExperiences) : 0;
 

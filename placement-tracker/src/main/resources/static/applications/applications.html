@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - Track your job applications and their progress.">
+    <title>Applications | CareerSpace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="applications.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="applications.html" class="sidebar-link active">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link active">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../profile/profile.html" class="sidebar-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#help" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="dash-main-wrapper">
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">Applications</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Track and update your job applications.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileName">--</strong>
+                            <span id="profileEmail">--</span>
+                            <span class="user-badge" id="profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="../profile/profile.html" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dash-content-container">
+
+            <!-- TOOLBAR -->
+            <section class="dash-section">
+                <div class="companies-toolbar">
+                    <div class="toolbar-search-wrapper">
+                        <svg class="toolbar-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="appSearchInput" class="form-control toolbar-search-input" placeholder="Search by company or position...">
+                    </div>
+
+                    <div class="toolbar-filter-wrapper">
+                        <select id="statusFilter" class="form-control toolbar-select">
+                            <option value="">All Statuses</option>
+                        </select>
+                    </div>
+
+                    <div class="toolbar-filter-wrapper">
+                        <select id="appSortSelect" class="form-control toolbar-select">
+                            <option value="applied-desc">Newest Applied</option>
+                            <option value="applied-asc">Oldest Applied</option>
+                            <option value="updated-desc">Recently Updated</option>
+                            <option value="company-asc">Company (A-Z)</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" id="addApplicationBtn">
+                        <span>+ Track Application</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- STATES -->
+            <section class="dash-section">
+                <div id="appsLoading" class="apps-skeleton-list"></div>
+
+                <div id="appsEmpty" class="empty-state hidden">
+                    <div class="empty-state-icon">📝</div>
+                    <h3>No applications tracked yet</h3>
+                    <p>Start logging your job applications to monitor progress across every stage.</p>
+                    <button class="btn btn-primary" id="emptyStateAddBtn">+ Track Your First Application</button>
+                </div>
+
+                <div id="appsError" class="empty-state hidden">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3>Couldn't load applications</h3>
+                    <p id="appsErrorMessage">Something went wrong while fetching data from the server.</p>
+                    <button class="btn btn-secondary" id="appsRetryBtn">Try Again</button>
+                </div>
+
+                <div id="appsNoResults" class="empty-state hidden">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>No matching applications</h3>
+                    <p>Try adjusting your search or filter criteria.</p>
+                    <button class="btn btn-secondary" id="appsClearFiltersBtn">Clear Filters</button>
+                </div>
+
+                <div id="appsTableWrapper" class="table-responsive content-panel hidden">
+                    <table class="dash-table">
+                        <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Position</th>
+                            <th>Status</th>
+                            <th>Created On</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </thead>
+                        <tbody id="appsTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<!-- MODAL: ADD APPLICATION -->
+<div class="modal-overlay hidden" id="addAppModal">
+    <div class="modal-box modal-box-lg">
+        <div class="modal-header">
+            <h2>Track New Application</h2>
+            <button class="modal-close-btn" id="closeAddAppModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <form id="addAppForm" class="modal-body" novalidate>
+            <div class="form-group">
+                <label for="appCompanySelect" class="form-label">Company & Role*</label>
+                <select id="appCompanySelect" class="form-control" required>
+                    <option value="" disabled selected>Select a company</option>
+                </select>
+                <span class="field-error" id="appCompanyError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="appStatusSelect" class="form-label">Status *</label>
+                <select id="appStatusSelect" class="form-control" required></select>
+                <span class="field-error" id="appStatusError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="appNotes" class="form-label">Notes</label>
+                <textarea id="appNotes" class="form-control textarea-control" rows="3" placeholder="Referral contact, job link, anything worth remembering..."></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelAddAppBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="submitAddAppBtn">
+                    <span class="btn-text">Track Application</span>
+                    <div class="btn-spinner hidden" id="addAppSpinner"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- MODAL: APPLICATION DETAIL -->
+<div class="modal-overlay hidden" id="appDetailModal">
+    <div class="modal-box modal-box-lg">
+        <div class="modal-header">
+            <h2 id="detailAppCompany">Company</h2>
+            <button class="modal-close-btn" id="closeAppDetailModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="detail-header-row">
+                <span class="status-pill" id="detailAppStatusPill">Status</span>
+                <div class="detail-header-info">
+                    <span class="detail-hq" id="detailAppPosition">Position</span>
+<!--                    <span class="detail-hq" id="detailAppLocation">Location</span>-->
+                </div>
+            </div>
+
+            <div class="app-timeline" id="appTimeline"></div>
+
+            <div class="detail-stat-box" id="detailAppNotesBox">
+                <span class="detail-stat-label">Notes</span>
+                <span class="detail-stat-value" id="detailAppNotes">—</span>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="deleteApplicationBtn">🗑️ Delete</button>
+                <button class="btn btn-primary" id="updateStatusBtn">🔄 Update Status</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL : DELETE APPLICATION-->
+
+<div class="modal-overlay hidden" id="deleteAppModal">
+    <div class="delete-confirm-modal">
+
+        <div class="delete-confirm-icon">🗑️</div>
+
+        <h2>Delete this application?</h2>
+
+        <p>
+            This will permanently remove
+            <strong id="deleteAppCompanyName">this application</strong>
+            and cannot be undone.
+        </p>
+
+        <div class="delete-confirm-actions">
+            <button type="button" class="btn btn-secondary" id="cancelDeleteAppBtn">
+                Cancel
+            </button>
+
+            <button type="button" class="delete-confirm-btn" id="confirmDeleteAppBtn">
+                Delete
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- MODAL: UPDATE STATUS -->
+<div class="modal-overlay hidden" id="updateStatusModal">
+    <div class="modal-box modal-box-lg">
+        <div class="modal-header">
+            <h2>Update Application Status</h2>
+            <button class="modal-close-btn" id="closeUpdateStatusModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <form id="updateStatusForm" class="modal-body" novalidate>
+            <input type="hidden" id="updateAppId" value="">
+
+            <div class="form-group">
+                <label for="updateStatusSelect" class="form-label">Status *</label>
+                <select id="updateStatusSelect" class="form-control" required></select>
+                <span class="field-error" id="updateStatusError"></span>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="updateOaScheduled" class="form-label">OA Scheduled Date</label>
+                    <input type="date" id="updateOaScheduled" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="updateOaCompleted" class="form-label">OA Completed Date</label>
+                    <input type="date" id="updateOaCompleted" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="updateInterviewScheduled" class="form-label">Interview Scheduled Date</label>
+                    <input type="date" id="updateInterviewScheduled" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="updateInterviewCompleted" class="form-label">Interview Completed Date</label>
+                    <input type="date" id="updateInterviewCompleted" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="updateResultReceived" class="form-label">Result Received Date</label>
+                <input type="date" id="updateResultReceived" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="custom-checkbox-container">
+                    <input type="checkbox" id="updateOfferAccepted">
+                    <span class="checkmark"></span>
+                    <span class="label-text">Offer Accepted</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="updateNotes" class="form-label">Notes</label>
+                <textarea id="updateNotes" class="form-control textarea-control" rows="3"></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelUpdateStatusBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="submitUpdateStatusBtn">
+                    <span class="btn-text">Save Update</span>
+                    <div class="btn-spinner hidden" id="updateStatusSpinner"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="../apiCilent.js"></script>
+<script src="applications.js"></script>
+</body>
+</html>

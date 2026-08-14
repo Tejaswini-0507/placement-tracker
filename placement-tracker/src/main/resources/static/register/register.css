@@ -1,0 +1,210 @@
+/* ==========================================================================
+   CAREERSPACE - REGISTER STYLES & EXTENSIONS
+   Includes: Password Requirements Checklist, Custom Searchable Dropdown,
+   and Multi-Column Form Layouts
+   ========================================================================== */
+
+@import url('login.css');
+
+/* 2-Column Form Row */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   PASSWORD REQUIREMENTS CHECKLIST
+   -------------------------------------------------------------------------- */
+.password-requirements {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    margin-top: 8px;
+}
+
+.req-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--secondary-text);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.req-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+}
+
+.req-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--secondary-text);
+    transition: color var(--transition-fast);
+}
+
+.req-badge {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #CBD5E1;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+/* Valid Requirement State */
+.req-item.valid {
+    color: #065F46;
+    font-weight: 500;
+}
+
+.req-item.valid .req-badge {
+    background-color: var(--success-green);
+    transform: scale(1.1);
+}
+
+.req-item.valid .req-badge::before {
+    content: "✓";
+}
+
+
+/* --------------------------------------------------------------------------
+   CUSTOM SEARCHABLE DROPDOWN (BRANCH)
+   -------------------------------------------------------------------------- */
+.custom-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-input {
+    cursor: pointer;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    color: var(--secondary-text);
+    pointer-events: none;
+    transition: transform var(--transition-fast);
+}
+
+.custom-select-wrapper.open .select-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.select-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+    max-height: 220px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-search-box {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-main);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.dropdown-search-box input {
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    outline: none;
+}
+
+.dropdown-options {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+}
+
+.dropdown-options li {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: var(--primary-text);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.dropdown-options li:hover,
+.dropdown-options li.selected {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+/* Native Select Styling */
+.select-native {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.select-arrow-native {
+    position: absolute;
+    right: 14px;
+    font-size: 0.7rem;
+    color: var(--secondary-text);
+    pointer-events: none;
+}
+
+/* Terms Checkbox Formatting */
+.terms-checkbox {
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+}
+
+.terms-checkbox a {
+    color: var(--primary-blue);
+    font-weight: 500;
+}
+
+.terms-checkbox a:hover {
+    text-decoration: underline;
+}
+
+/* Submit Button Disabled State */
+.btn-primary:disabled {
+    background-color: #93C5FD;
+    border-color: #93C5FD;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .form-row-2 {
+        grid-template-columns: 1fr;
+    }
+}

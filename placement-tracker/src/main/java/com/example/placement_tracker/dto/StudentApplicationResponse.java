@@ -23,6 +23,8 @@ public class StudentApplicationResponse {
 
     private String companyName;
 
+    private UUID positionId;
+
     private String positionTitle;
 
     private String status;

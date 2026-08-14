@@ -87,7 +87,7 @@ public class InterviewExperienceController {
         }
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<?> updateExperience(@PathVariable UUID id , @Valid @RequestBody InterviewExperienceRequest request){
         try{
@@ -132,5 +132,22 @@ public class InterviewExperienceController {
             return ResponseEntity.status(500)
                     .body(new ErrorResponse("INTERNAL_ERROR", e.getMessage(),System.currentTimeMillis()));
         }
+    }
+
+    @Transactional
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteExperience(@PathVariable UUID id){
+        try{
+            interviewExperienceService.deleteExperience(id);
+            return ResponseEntity.ok()
+                    .body(new ErrorResponse("SUCCESS","Experience deleted successfully",System.currentTimeMillis()));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404)
+                    .body(new ErrorResponse("NOT_FOUND", e.getMessage(), System.currentTimeMillis()));
+        }catch (Exception e){
+            return ResponseEntity.status(500)
+                    .body(new ErrorResponse("INTERNAL_ERROR","Failed to delete experience",System.currentTimeMillis()));
+        }
+
     }
 }

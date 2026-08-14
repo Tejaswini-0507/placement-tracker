@@ -29,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegistrationRequest authRequest){
-        System.out.println("Register HIt --------");
+        System.out.println("Register Hit --------");
               try{
             AuthResponse response = authService.register(authRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -55,6 +55,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ErrorResponse("SERVER_ERROR","An error occured", System.currentTimeMillis()));
         }
+
 
     }
 }

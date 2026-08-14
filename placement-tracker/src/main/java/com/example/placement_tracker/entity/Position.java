@@ -34,9 +34,6 @@ public class Position {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "location",nullable = false)
-    private String location;
-
     @Column(name = "created_at",nullable = false,updatable = false)
     private Long createdAt;
 

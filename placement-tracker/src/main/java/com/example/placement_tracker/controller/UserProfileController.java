@@ -18,6 +18,7 @@ public class UserProfileController {
 
     @GetMapping("/me")
     public ResponseEntity<?> getMyProfile(){
+        System.out.println("============Profile endpoint reached=========");
         try{
             UserProfileResponse response = userProfileService.getMyProfile();
             return ResponseEntity.ok(response);

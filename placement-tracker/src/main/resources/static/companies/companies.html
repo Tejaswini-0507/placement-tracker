@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - Browse and manage companies for placement tracking.">
+    <title>Companies | CareerSpace</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Base, Dashboard Shell & Companies Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="companies.css">
+</head>
+<body class="dashboard-body">
+
+<!-- Mobile Sidebar Backdrop Overlay -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <!-- ==========================================
+         1. FIXED LEFT SIDEBAR
+         ========================================== -->
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="companies.html" class="sidebar-link active">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link active">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../profile/profile.html" class="sidebar-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#help" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+
+    <!-- ==========================================
+         2. MAIN WRAPPER (TOPBAR + CONTENT)
+         ========================================== -->
+    <div class="dash-main-wrapper">
+
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">Companies</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Browse and manage companies for placement tracking.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileName">--</strong>
+                            <span id="profileEmail">--</span>
+                            <span class="user-badge" id="profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="../profile/profile.html" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="dash-content-container">
+
+            <!-- ==========================================
+                 TOOLBAR: SEARCH, FILTER, ADD
+                 ========================================== -->
+            <section class="dash-section">
+                <div class="companies-toolbar">
+                    <div class="toolbar-search-wrapper">
+                        <svg class="toolbar-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="companySearchInput" class="form-control toolbar-search-input" placeholder="Search companies by name...">
+                    </div>
+
+                    <div class="toolbar-filter-wrapper">
+                        <select id="industryFilter" class="form-control toolbar-select">
+                            <option value="">All Industries</option>
+                        </select>
+                    </div>
+
+                    <div class="toolbar-filter-wrapper">
+                        <select id="sortSelect" class="form-control toolbar-select">
+                            <option value="name-asc">Name (A-Z)</option>
+                            <option value="name-desc">Name (Z-A)</option>
+                            <option value="applicants-desc">Most Applicants</option>
+                            <option value="selected-desc">Most Selected</option>
+                            <option value="difficulty-desc">Highest Difficulty</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" id="addCompanyBtn">
+                        <span>+ Add Company</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 COMPANIES GRID / STATES
+                 ========================================== -->
+            <section class="dash-section">
+                <div id="companiesLoading" class="companies-grid">
+                    <!-- Skeleton cards injected by JS -->
+                </div>
+
+                <div id="companiesEmpty" class="empty-state hidden">
+                    <div class="empty-state-icon">🏢</div>
+                    <h3>No companies yet</h3>
+                    <p>Start building your company database to link applications and track hiring patterns.</p>
+                    <button class="btn btn-primary" id="emptyStateAddBtn">+ Add Your First Company</button>
+                </div>
+
+                <div id="companiesError" class="empty-state hidden">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3>Couldn't load companies</h3>
+                    <p id="companiesErrorMessage">Something went wrong while fetching data from the server.</p>
+                    <button class="btn btn-secondary" id="retryLoadBtn">Try Again</button>
+                </div>
+
+                <div id="companiesGrid" class="companies-grid hidden"></div>
+
+                <div id="noResultsState" class="empty-state hidden">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>No matching companies</h3>
+                    <p>Try adjusting your search or filter criteria.</p>
+                    <button class="btn btn-secondary" id="clearFiltersBtn">Clear Filters</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+
+<!-- ==========================================
+     MODAL: ADD / EDIT COMPANY FORM
+     ========================================== -->
+<div class="modal-overlay hidden" id="companyFormModal">
+    <div class="modal-box modal-box-lg">
+        <div class="modal-header">
+            <h2 id="companyFormTitle">Add Company</h2>
+            <button class="modal-close-btn" id="closeFormModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <form id="companyForm" class="modal-body" novalidate>
+            <input type="hidden" id="companyId" value="">
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="companyName" class="form-label">Company Name *</label>
+                    <input type="text" id="companyName" class="form-control" placeholder="e.g. Microsoft" required>
+                    <span class="field-error" id="companyNameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="companyIndustry" class="form-label">Industry *</label>
+                    <input type="text" id="companyIndustry" class="form-control" placeholder="e.g. Technology" list="industrySuggestions" required>
+                    <datalist id="industrySuggestions">
+                        <option value="Technology">
+                        <option value="Finance">
+                        <option value="Consulting">
+                        <option value="E-commerce">
+                        <option value="Healthcare">
+                        <option value="Manufacturing">
+                        <option value="Telecommunications">
+                    </datalist>
+                    <span class="field-error" id="companyIndustryError"></span>
+                </div>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="companyHeadquarters" class="form-label">Headquarters *</label>
+                    <input type="text" id="companyHeadquarters" class="form-control" placeholder="e.g. Redmond, WA, USA" required>
+                    <span class="field-error" id="companyHeadquartersError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="companyWebsite" class="form-label">Website</label>
+                    <input type="url" id="companyWebsite" class="form-control" placeholder="https://example.com">
+                    <span class="field-error" id="companyWebsiteError"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="companyDescription" class="form-label">Description *</label>
+                <textarea id="companyDescription" class="form-control textarea-control" rows="3" placeholder="Brief overview of the company..." required></textarea>
+                <span class="field-error" id="companyDescriptionError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="companyHiringFor" class="form-label">Hiring For *</label>
+                <input type="text" id="companyHiringFor" class="form-control" placeholder="e.g. SDE, Data Analyst, Product Manager" required>
+                <span class="field-error" id="companyHiringForError"></span>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="companyPackages" class="form-label">Package Range</label>
+                    <input type="text" id="companyPackages" class="form-control" placeholder="e.g. 8-15 LPA">
+                </div>
+
+                <div class="form-group">
+                    <label for="companyDifficulty" class="form-label">Interview Difficulty (1-5)</label>
+                    <input type="number" id="companyDifficulty" class="form-control" step="0.1" min="0.1" max="5" placeholder="e.g. 3.5">
+                    <span class="field-error" id="companyDifficultyError"></span>
+                </div>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="companyTotalApplicants" class="form-label">Total Applicants</label>
+                    <input type="number" id="companyTotalApplicants" class="form-control" min="1" step="1" placeholder="e.g. 340">
+                    <span class="field-error" id="companyTotalApplicantsError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="companyTotalSelected" class="form-label">Total Selected</label>
+                    <input type="number" id="companyTotalSelected" class="form-control" min="1" step="1" placeholder="e.g. 22">
+                    <span class="field-error" id="companyTotalSelectedError"></span>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelFormBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="submitCompanyBtn">
+                    <span class="btn-text">Save Company</span>
+                    <div class="btn-spinner hidden" id="companyFormSpinner"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- ==========================================
+     MODAL: COMPANY DETAIL VIEW
+     ========================================== -->
+<div class="modal-overlay hidden" id="companyDetailModal">
+    <div class="modal-box modal-box-lg">
+        <div class="modal-header">
+            <h2 id="detailCompanyName">Company Name</h2>
+            <button class="modal-close-btn" id="closeDetailModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="detail-header-row">
+                <div class="detail-logo-box" id="detailLogoBox">--</div>
+                <div class="detail-header-info">
+                    <span class="detail-industry-badge" id="detailIndustry">Industry</span>
+                    <span class="detail-hq" id="detailHeadquarters">Headquarters</span>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="detail-website-link" id="detailWebsite">Visit Website ↗</a>
+                </div>
+            </div>
+
+            <p class="detail-description" id="detailDescription">Description text here.</p>
+
+            <div class="detail-stats-grid">
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Hiring For</span>
+                    <span class="detail-stat-value" id="detailHiringFor">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Package Range</span>
+                    <span class="detail-stat-value" id="detailPackages">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Interview Difficulty</span>
+                    <span class="detail-stat-value" id="detailDifficulty">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Selection Rate</span>
+                    <span class="detail-stat-value" id="detailSelectionRate">--</span>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="deleteCompanyBtn">🗑️ Delete</button>
+                <button class="btn btn-primary" id="editCompanyBtn">✏️ Edit Company</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ==========================================
+     MODAL: DELETE CONFIRMATION
+     ========================================== -->
+<div class="modal-overlay hidden" id="deleteConfirmModal">
+    <div class="modal-box modal-box-sm">
+        <div class="modal-body confirm-modal-body">
+            <div class="confirm-icon">🗑️</div>
+            <h3>Delete this company?</h3>
+            <p>This will permanently remove <strong id="deleteCompanyName">this company</strong> and cannot be undone.</p>
+            <div class="modal-footer confirm-footer">
+                <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">
+                    <span class="btn-text">Delete</span>
+                    <div class="btn-spinner hidden" id="deleteSpinner"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Scripts -->
+<script src="../apiCilent.js"></script>
+<script src="companies.js"></script>
+</body>
+</html>

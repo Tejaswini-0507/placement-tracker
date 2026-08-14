@@ -23,8 +23,11 @@ public class InterviewExperienceRequest {
     @NotNull (message = "Position Id is required")
     private UUID positionId;
 
-    @NotNull(message = "Interview Round Id is required")
-    private UUID interviewRoundConfigId;
+    @NotBlank(message = "Round name is required")
+    private String roundName;
+
+    @NotNull(message = "Round number is required")
+    private Integer roundNumber;
 
     @NotNull(message = "Date experienced is required")
     private Long dateExperienced;

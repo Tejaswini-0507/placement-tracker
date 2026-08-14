@@ -45,11 +45,11 @@ public class MyExperienceService {
                 ));
 
         long passedCount = experiences.stream()
-                .filter(exp -> "PASSED".equals(exp.getResult()))
+                .filter(exp -> exp.getResult() == InterviewResult.PASSED)
                 .count();
 
         long failedCount = experiences.stream()
-                .filter(exp -> "FAILED".equals(exp.getResult()))
+                .filter(exp -> exp.getResult() == InterviewResult.FAILED)
                 .count();
 
         double avgDifficulty = experiences.stream()
@@ -73,7 +73,7 @@ public class MyExperienceService {
                 .interviewRound(exp.getInterviewRoundConfig().getRoundName().toString())
                 .difficultyLevel(exp.getDifficultyRating().toString())
                 .result(exp.getResult().toString())
-                .topics(exp.getTopics().toString())
+                .topics(exp.getTopics() != null ? exp.getTopics().toString() : null)
                 .upvotes(exp.getUpvotes())
                 .downvotes(exp.getDownvotes())
                 .createdAt(exp.getCreatedAt())

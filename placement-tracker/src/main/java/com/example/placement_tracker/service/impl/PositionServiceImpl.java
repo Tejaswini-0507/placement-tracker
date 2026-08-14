@@ -15,14 +15,13 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public Position getOrCreatePosition(Company company,
-                                        String title,
-                                        String location){
+                                        String title){
         return positionRepository.findByCompanyAndTitleIgnoreCase(company, title)
                 .orElseGet(()-> {
                     Position position = Position.builder()
                             .company(company)
                             .title(title)
-                            .location(location)
+
                             .build();
                     return positionRepository.save(position);
                 });

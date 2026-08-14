@@ -90,6 +90,14 @@ public class DiscussionThreadService {
                 .collect(Collectors.toList());
     }
 
+    //GET COMPANY THREADS
+    @Transactional
+    public List<DiscussionThreadResponse> getCompanyThreads(UUID companyId){
+        return threadRepository.findByCompany_Id(companyId)
+                .stream().map(this::entityToResponse)
+                .collect(Collectors.toList());
+    }
+
     //GET PINNED THREADS
     @Transactional
     public List<DiscussionThreadResponse> getPinnedThreads(UUID companyId){
@@ -205,13 +213,13 @@ public class DiscussionThreadService {
                 .createdByStudentId(thread.getCreatedByStudent().getId())
                 .createdByStudentName(thread.getCreatedByStudent().getName())
                 .interviewRound(thread.getInterviewRound())
-                .topic(String.valueOf(thread.getInterviewRound()))
+                .topic(thread.getTopic())
                 .title(thread.getTitle())
                 .description(thread.getDescription())
                 .messageCount(thread.getMessageCount())
                 .pinned(thread.getPinned())
                 .lastActivity(thread.getLastActivity())
-                .createdAt(thread.getLastActivity())
+                .createdAt(thread.getCreatedAt())
                 .build();
     }
 

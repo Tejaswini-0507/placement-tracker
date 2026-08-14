@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -19,4 +20,9 @@ public interface InterviewExperienceRepository extends JpaRepository<InterviewEx
 
     @EntityGraph(attributePaths = {"student","company"})
     List<InterviewExperience> findByCompany_IdAndInterviewRoundConfig_Id(UUID companyId, UUID interviewRoundConfigId);
+
+    Optional<InterviewExperience> findByStudentApplication_IdAndRoundNumber(
+            UUID applicationId,
+            Integer roundNumber
+    );
 }

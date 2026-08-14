@@ -1,0 +1,699 @@
+/* ==========================================================================
+   CAREERSPACE - COMPANIES MODULE STYLESHEET
+   Extends: style.css (tokens) + dashboard.css (shell layout)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   FORM CONTROLS (self-contained - companies.html does not load login.css,
+   so these base classes must live here rather than being inherited)
+   -------------------------------------------------------------------------- */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-text);
+}
+
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-control {
+    width: 100%;
+    height: 48px;
+    padding: 10px 16px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--primary-text);
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+.form-control:focus {
+    background-color: #FFFFFF;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-control.is-invalid {
+    border-color: #EF4444;
+    background-color: #FEF2F2;
+}
+
+.form-control.is-invalid:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.form-control::placeholder {
+    color: #94A3B8;
+}
+
+.field-error {
+    font-size: 0.78rem;
+    color: #DC2626;
+    font-weight: 500;
+    min-height: 16px;
+}
+
+/* Native select styling - custom chevron, no browser default arrow */
+select.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+}
+
+
+/* --------------------------------------------------------------------------
+   TOOLBAR: SEARCH, FILTER, SORT, ADD
+   -------------------------------------------------------------------------- */
+.companies-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.toolbar-search-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 240px;
+}
+
+.toolbar-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-text);
+    pointer-events: none;
+}
+
+.toolbar-search-input {
+    padding-left: 42px;
+}
+
+.toolbar-search-wrapper:focus-within .toolbar-search-icon {
+    color: var(--primary-blue);
+}
+
+.toolbar-select {
+    width: auto;
+    min-width: 180px;
+}
+
+.toolbar-filter-wrapper {
+    flex-shrink: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   COMPANIES GRID & CARDS
+   -------------------------------------------------------------------------- */
+.companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* ID + class selector beats the plain .companies-grid / .empty-state class
+   selectors regardless of stylesheet load order, so "hidden" always actually
+   hides these elements. Without this, dashboard.css's .hidden{display:none}
+   loses the cascade tie to companies.css's later-loaded display rules. */
+#companiesLoading.hidden,
+#companiesGrid.hidden,
+#companiesEmpty.hidden,
+#companiesError.hidden,
+#noResultsState.hidden {
+    display: none;
+}
+
+.company-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.company-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--light-blue);
+}
+
+.company-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.company-logo-box {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--light-blue), #E0E7FF);
+    color: var(--primary-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.company-logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.company-card-title-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.company-card-name {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.company-card-industry {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    background-color: var(--light-blue);
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+}
+
+.company-card-hq {
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.company-card-hiring {
+    font-size: 0.85rem;
+    color: var(--primary-text);
+    line-height: 1.5;
+}
+
+.company-card-hiring strong {
+    color: var(--secondary-text);
+    font-weight: 600;
+    font-size: 0.78rem;
+    display: block;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.company-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+}
+
+.company-card-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-card-stat-label {
+    font-size: 0.68rem;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.company-card-stat-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary-text);
+}
+
+.difficulty-stars {
+    color: #F59E0B;
+    font-size: 0.85rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   SKELETON LOADERS (PURE CSS)
+   -------------------------------------------------------------------------- */
+.skeleton-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.skeleton-line {
+    border-radius: 6px;
+    background: linear-gradient(90deg, #EDF1F5 25%, #F8FAFC 37%, #EDF1F5 63%);
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.4s ease infinite;
+}
+
+.skeleton-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.skeleton-title { height: 16px; width: 70%; margin-bottom: 6px; }
+.skeleton-badge { height: 12px; width: 40%; }
+.skeleton-text { height: 12px; width: 90%; }
+.skeleton-text-short { height: 12px; width: 50%; }
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+
+/* --------------------------------------------------------------------------
+   EMPTY / ERROR / NO-RESULTS STATES
+   -------------------------------------------------------------------------- */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 64px 24px;
+    background-color: #FFFFFF;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+.empty-state-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    opacity: 0.8;
+}
+
+.empty-state h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    max-width: 380px;
+    margin-bottom: 20px;
+}
+
+
+/* --------------------------------------------------------------------------
+   MODAL SYSTEM (SHARED BY FORM / DETAIL / CONFIRM)
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 24px;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-box {
+    background-color: #FFFFFF;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideUp 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-box-lg { max-width: 640px; }
+.modal-box-sm { max-width: 420px; }
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.modal-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-text);
+}
+
+.modal-close-btn {
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--secondary-text);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+    background-color: var(--bg-main);
+    color: var(--primary-text);
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.textarea-control {
+    height: auto;
+    resize: vertical;
+    padding: 12px 16px;
+    line-height: 1.5;
+}
+
+.btn-danger {
+    background-color: #FEE2E2;
+    color: #DC2626;
+    box-shadow: none;
+}
+
+.btn-danger:hover {
+    background-color: #DC2626;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+
+/* --------------------------------------------------------------------------
+   DETAIL MODAL SPECIFIC
+   -------------------------------------------------------------------------- */
+.detail-header-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.detail-logo-box {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--light-blue), #E0E7FF);
+    color: var(--primary-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.detail-logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.detail-header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-industry-badge {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    background-color: var(--light-blue);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+}
+
+.detail-hq {
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+}
+
+.detail-website-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    width: fit-content;
+}
+
+.detail-website-link:hover {
+    text-decoration: underline;
+}
+
+.detail-website-link.hidden {
+    display: none;
+}
+
+.detail-description {
+    font-size: 0.9rem;
+    color: var(--primary-text);
+    line-height: 1.6;
+}
+
+.detail-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.detail-stat-box {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-stat-label {
+    font-size: 0.7rem;
+    color: var(--secondary-text);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.detail-stat-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-text);
+}
+
+
+/* --------------------------------------------------------------------------
+   DELETE CONFIRM MODAL
+   -------------------------------------------------------------------------- */
+.confirm-modal-body {
+    align-items: center;
+    text-align: center;
+    padding: 32px 24px;
+}
+
+.confirm-icon {
+    font-size: 2.25rem;
+    margin-bottom: 12px;
+}
+
+.confirm-modal-body h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 8px;
+}
+
+.confirm-modal-body p {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    margin-bottom: 20px;
+}
+
+.confirm-footer {
+    justify-content: center;
+    width: 100%;
+}
+
+
+/* --------------------------------------------------------------------------
+   TOAST NOTIFICATIONS
+   -------------------------------------------------------------------------- */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 3000;
+    max-width: 360px;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 14px 16px;
+    opacity: 0;
+    transform: translateX(24px);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toast.toast-enter {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast.toast-exit {
+    opacity: 0;
+    transform: translateX(24px);
+}
+
+.toast-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.toast-success .toast-icon { background-color: var(--success-light); color: var(--success-green); }
+.toast-error .toast-icon { background-color: #FEE2E2; color: #DC2626; }
+.toast-info .toast-icon { background-color: var(--light-blue); color: var(--primary-blue); }
+
+.toast-message {
+    font-size: 0.85rem;
+    color: var(--primary-text);
+    flex: 1;
+    line-height: 1.4;
+}
+
+.toast-close {
+    color: var(--secondary-text);
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 2px 4px;
+    flex-shrink: 0;
+}
+
+.toast-close:hover {
+    color: var(--primary-text);
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .companies-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toolbar-select {
+        width: 100%;
+    }
+
+    .companies-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .toast-container {
+        left: 16px;
+        right: 16px;
+        max-width: none;
+    }
+}

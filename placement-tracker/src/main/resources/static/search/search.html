@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - Search interview experiences shared by other students.">
+    <title>Search | CareerSpace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="search.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="search.html" class="sidebar-link active">
+                        <span class="nav-icon">🔎</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile" class="sidebar-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#settings" class="sidebar-link">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-label">Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../help/help.html" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="dash-main-wrapper">
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">Search</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Search interview experiences shared by other students.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileName">--</strong>
+                            <span id="profileEmail">--</span>
+                            <span class="user-badge" id="profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="#profile" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dash-content-container">
+
+            <!-- SEARCH BAR + FILTERS -->
+            <section class="dash-section">
+                <div class="search-toolbar">
+                    <div class="toolbar-search-wrapper search-main-input">
+                        <svg class="toolbar-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="searchQueryInput" class="form-control toolbar-search-input" placeholder="Search company, questions, summary, topics...">
+                    </div>
+
+                    <div class="filters-row">
+                        <select id="filterCompany" class="form-control toolbar-select">
+                            <option value="">All Companies</option>
+                        </select>
+                        <select id="filterDifficulty" class="form-control toolbar-select">
+                            <option value="">Any Difficulty</option>
+                            <option value="EASY">Easy</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="HARD">Hard</option>
+                            <option value="EXPERT">Expert</option>
+                        </select>
+                        <select id="filterResult" class="form-control toolbar-select">
+                            <option value="">Any Result</option>
+                            <option value="PASSED">Passed</option>
+                            <option value="FAILED">Failed</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="WAITING_LIST">Waiting List</option>
+                        </select>
+                        <input type="text" id="filterTopics" class="form-control toolbar-select" placeholder="Topics (comma separated)">
+                        <select id="sortSelect" class="form-control toolbar-select">
+                            <option value="createdAt-desc">Newest First</option>
+                            <option value="createdAt-asc">Oldest First</option>
+                            <option value="upvotes-desc">Most Helpful</option>
+                            <option value="upvotes-asc">Least Helpful</option>
+                        </select>
+                        <button class="btn btn-secondary btn-sm" id="clearFiltersBtn">Clear Filters</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RESULTS -->
+            <section class="dash-section">
+                <div id="searchMeta" class="search-meta hidden"></div>
+
+                <div id="searchLoading" class="experiences-grid"></div>
+
+                <div id="searchEmpty" class="empty-state hidden">
+                    <div class="empty-state-icon">🔎</div>
+                    <h3>No results found</h3>
+                    <p>Try a different search term or adjust your filters.</p>
+                </div>
+
+                <div id="searchError" class="empty-state hidden">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3>Search failed</h3>
+                    <p id="searchErrorMessage"></p>
+                    <button class="btn btn-secondary" id="searchRetryBtn">Try Again</button>
+                </div>
+
+                <div id="searchResultsGrid" class="experiences-grid hidden"></div>
+
+                <div id="paginationControls" class="pagination-controls hidden">
+                    <button class="btn btn-secondary btn-sm" id="prevPageBtn">← Previous</button>
+                    <span id="pageIndicator" class="page-indicator">Page 1</span>
+                    <button class="btn btn-secondary btn-sm" id="nextPageBtn">Next →</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+
+<!-- MODAL: RESULT DETAIL (READ-ONLY, VOTE ENABLED) -->
+<div class="modal-overlay hidden" id="searchDetailModal">
+    <div class="modal-box modal-box-xl">
+        <div class="modal-header">
+            <h2 id="detailCompany">Company</h2>
+            <button class="modal-close-btn" id="closeDetailModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="detail-header-row">
+                <div class="detail-pill-group">
+                    <span class="detail-stat-label">Difficulty</span>
+                    <span class="difficulty-pill" id="detailDifficulty">Difficulty</span>
+                </div>
+                <div class="detail-pill-group">
+                    <span class="detail-stat-label">Result</span>
+                    <span class="result-pill" id="detailResult">Result</span>
+                </div>
+                <div class="detail-header-info">
+                    <span class="detail-stat-label">Position</span>
+                    <span class="detail-hq" id="detailPosition">Position</span>
+                    <span class="detail-stat-label" style="margin-top:6px;">Round</span>
+                    <span class="detail-hq" id="detailRound">Round</span>
+                </div>
+            </div>
+
+            <div class="detail-stats-grid">
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Duration</span>
+                    <span class="detail-stat-value" id="detailDuration">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Problems Asked</span>
+                    <span class="detail-stat-value" id="detailProblems">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Shared By</span>
+                    <span class="detail-stat-value" id="detailStudent">--</span>
+                </div>
+                <div class="detail-stat-box">
+                    <span class="detail-stat-label">Relevance</span>
+                    <span class="detail-stat-value" id="detailScore">--</span>
+                </div>
+            </div>
+
+            <div class="detail-block">
+                <span class="detail-stat-label">Questions Asked</span>
+                <p class="detail-block-text" id="detailQuestionsAsked">--</p>
+            </div>
+
+            <div class="detail-block" id="detailTopicsBlock">
+                <span class="detail-stat-label">Topics</span>
+                <div class="resume-card-tags" id="detailTopics"></div>
+            </div>
+
+            <div class="detail-block">
+                <span class="detail-stat-label">Experience Summary</span>
+                <p class="detail-block-text" id="detailSummary">--</p>
+            </div>
+
+            <div class="detail-block" id="detailResourcesBlock">
+                <span class="detail-stat-label">Helpful Resources</span>
+                <p class="detail-block-text" id="detailResources">--</p>
+            </div>
+
+            <div class="vote-row">
+                <button class="btn btn-secondary vote-btn" id="detailUpvoteBtn">👍 <span id="detailUpvoteCount">0</span></button>
+                <button class="btn btn-secondary vote-btn" id="detailDownvoteBtn">👎 <span id="detailDownvoteCount">0</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../apiCilent.js"></script>
+<script src="search.js"></script>
+</body>
+</html>

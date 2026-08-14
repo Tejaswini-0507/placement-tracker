@@ -29,4 +29,5 @@ public interface DiscussionMessageRepository extends JpaRepository<DiscussionMes
     // Find messages after specific timestamp (for polling)
     @EntityGraph(attributePaths = {"thread","student"})
     List<DiscussionMessage> findByThread_IdAndCreatedAtGreaterThanOrderByCreatedAtAsc(UUID threadId, Long createdAt);
+
 }

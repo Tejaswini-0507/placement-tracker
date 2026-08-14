@@ -1,0 +1,443 @@
+/* ==========================================================================
+   CAREERSPACE - PROFILE PAGE STYLESHEET
+   Depends on: style.css (tokens), dashboard.css (shell)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. PROFILE HEADER CARD
+   -------------------------------------------------------------------------- */
+.profile-header-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-avatar-lg {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-blue), #1D4ED8);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+
+.profile-header-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-header-name {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 4px;
+}
+
+.profile-header-email {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    margin-bottom: 12px;
+}
+
+.profile-header-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.profile-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    background-color: var(--light-blue);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+}
+
+.profile-edit-btn {
+    flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   2. ABOUT / INFO GRID
+   -------------------------------------------------------------------------- */
+.profile-split-grid {
+    align-items: start;
+}
+
+.profile-bio-text {
+    font-size: 0.9rem;
+    color: var(--primary-text);
+    line-height: 1.6;
+}
+
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.profile-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 14px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+.profile-info-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--secondary-text);
+}
+
+.profile-info-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-text);
+    word-break: break-word;
+}
+
+/* --------------------------------------------------------------------------
+   3. QUICK LINKS
+   -------------------------------------------------------------------------- */
+.profile-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-link-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.profile-link-item:hover {
+    border-color: var(--primary-blue);
+    transform: translateX(4px);
+}
+
+.profile-link-icon {
+    font-size: 1.2rem;
+}
+
+.profile-link-text strong {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--primary-text);
+}
+
+.profile-link-text span {
+    font-size: 0.75rem;
+    color: var(--primary-blue);
+    font-weight: 500;
+}
+
+.profile-no-links {
+    font-size: 0.85rem;
+    color: var(--secondary-text);
+    padding: 8px 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. SKELETON LOADING STATE
+   -------------------------------------------------------------------------- */
+.skeleton-card {
+    align-items: center;
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #E2E8F0 25%, #EDF2F7 37%, #E2E8F0 63%);
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.4s ease infinite;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-avatar-lg {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.skeleton-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skeleton-line {
+    height: 14px;
+    border-radius: 4px;
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+/* --------------------------------------------------------------------------
+   5. EMPTY / ERROR STATE (shared pattern used across pages)
+   -------------------------------------------------------------------------- */
+.empty-state {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 56px 24px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.empty-state-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+}
+
+.empty-state h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    max-width: 420px;
+    margin: 0 auto 20px;
+}
+
+/* --------------------------------------------------------------------------
+   6. MODAL PRIMITIVES (shared pattern used across pages)
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 1;
+    transition: opacity var(--transition-fast);
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-box {
+    background-color: #FFFFFF;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modal-pop 0.2s ease;
+}
+
+.modal-box-lg { max-width: 640px; }
+.modal-box-sm { max-width: 420px; }
+
+@keyframes modal-pop {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-text);
+}
+
+.modal-close-btn {
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--secondary-text);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+    background-color: var(--bg-main);
+    color: var(--primary-text);
+}
+
+.modal-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 6px;
+}
+
+.confirm-footer {
+    justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   7. FORM PRIMITIVES (shared pattern used across pages)
+   -------------------------------------------------------------------------- */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-text);
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--primary-text);
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-control:disabled {
+    background-color: var(--bg-main);
+    color: var(--secondary-text);
+    cursor: not-allowed;
+}
+
+.form-control.input-error {
+    border-color: #EF4444;
+}
+
+.textarea-control {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.field-error {
+    font-size: 0.78rem;
+    color: #DC2626;
+    min-height: 14px;
+}
+
+.field-hint {
+    font-size: 0.78rem;
+    color: var(--secondary-text);
+}
+
+.btn-danger {
+    background-color: #FEE2E2;
+    color: #DC2626;
+}
+
+.btn-danger:hover {
+    background-color: #FECACA;
+}
+
+.btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Button loading spinner */
+.btn-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #FFFFFF;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+.btn-secondary .btn-spinner {
+    border: 2px solid rgba(37, 99, 235, 0.25);
+    border-top-color: var(--primary-blue);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .profile-header-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-header-badges {
+        justify-content: center;
+    }
+
+    .profile-edit-btn {
+        width: 100%;
+    }
+
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row-2 {
+        grid-template-columns: 1fr;
+    }
+}

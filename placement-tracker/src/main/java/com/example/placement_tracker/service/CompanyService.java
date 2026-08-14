@@ -3,13 +3,18 @@ package com.example.placement_tracker.service;
 import com.example.placement_tracker.dto.CompanyRequest;
 import com.example.placement_tracker.dto.CompanyResponse;
 import com.example.placement_tracker.entity.Company;
+import com.example.placement_tracker.entity.Student;
 import com.example.placement_tracker.repository.CompanyRepository;
+import com.example.placement_tracker.repository.StudentRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -19,11 +24,18 @@ public class CompanyService {
     CompanyRepository companyRepository;
 
     @Autowired
+    StudentRepository studentRepository;
+
+
+    @Autowired
     ObjectMapper objectMapper;
 
     //CREATE company
     public CompanyResponse createCompany(CompanyRequest request) {
-        if (companyRepository.findByName(request.getName()).isPresent()) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        if (companyRepository.findByNameAndHiringFor(request.getName(), request.getHiringFor()).isPresent()) {
             throw new IllegalArgumentException("Company Already exists : " + request.getName());
         } else {
             JsonNode packagesJsonNode = null;
@@ -35,9 +47,11 @@ public class CompanyService {
                 }
             }
 
+            Student student =  studentRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("Student not found"));
+
+
             Company company = Company.builder()
                     .name(request.getName())
-                    .logoUrl(request.getLogoUrl())
                     .website(request.getWebsite())
                     .description(request.getDescription())
                     .headQuarters(request.getHeadQuarters())
@@ -47,6 +61,7 @@ public class CompanyService {
                     .averageDifficulty(request.getAverageDifficulty())
                     .totalApplicants(request.getTotalApplicants())
                     .totalSelected(request.getTotalSelected())
+                    .createdStudentId(student.getId())
                     .build();
 
             company = companyRepository.save(company);
@@ -86,7 +101,6 @@ public class CompanyService {
         }
 
         company.setName(request.getName());
-        company.setLogoUrl(request.getLogoUrl());
         company.setWebsite(request.getWebsite());
         company.setDescription(request.getDescription());
         company.setHeadQuarters(request.getHeadQuarters());
@@ -104,10 +118,22 @@ public class CompanyService {
         }
 
     //DELETE company
-    public void deleteCompany(UUID id){
-        if(!companyRepository.existsById(id)){
-            throw new IllegalArgumentException("Company not found");
-        }else companyRepository.deleteById(id);
+    public void deleteCompany(UUID id) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        Company company = companyRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Company not found"));
+
+        Student student = studentRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
+        if (!Objects.equals(company.getCreatedStudentId(), student.getId())) {
+            throw new IllegalArgumentException("Only the creator can delete this");
+        }
+
+        companyRepository.deleteById(id);
     }
 
 
@@ -116,7 +142,7 @@ public class CompanyService {
         return CompanyResponse.builder()
                 .id(company.getId())
                 .name(company.getName())
-                .logoUrl(company.getLogoUrl())
+
                 .website(company.getWebsite())
                 .description(company.getDescription())
                 .headQuarters(company.getHeadQuarters())

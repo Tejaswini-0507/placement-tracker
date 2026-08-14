@@ -64,6 +64,18 @@ public class DiscussionThreadController {
         }
     }
 
+    @GetMapping("/company/{companyId}")
+    public ResponseEntity<?> getThreadsByCompany(@PathVariable UUID companyId){
+        try{
+            List<DiscussionThreadResponse> responses = threadService.getCompanyThreads(companyId);
+            return  ResponseEntity.ok(responses);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse("INTERNAL_ERROR", "Failed to fetch threads",System.currentTimeMillis()));
+        }
+    }
+
+
     // GET PINNED THREADS
     @GetMapping("/company/{companyId}/pinned")
     public ResponseEntity<?> getPinnedThreads(@PathVariable UUID companyId) {

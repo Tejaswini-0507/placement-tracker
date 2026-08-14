@@ -150,7 +150,7 @@ public class DashboardService {
                 .interviewRound(exp.getInterviewRoundConfig().getRoundName())
                 .difficultyLevel(exp.getDifficultyRating())
                 .result(exp.getResult())
-                .topics(exp.getTopics().toString())
+                .topics(exp.getTopics() != null ? exp.getTopics().toString() : null)
                 .upvotes(exp.getUpvotes())
                 .downvotes(exp.getDownvotes())
                 .createdAt(exp.getCreatedAt())

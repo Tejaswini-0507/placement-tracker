@@ -69,9 +69,21 @@ public class AuthService {
         Student student = studentRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
 
+        System.out.println("Entered password: " + request.getPassword());
+        System.out.println("Hashed password: "+ student.getPasswordHash());
+
+        boolean matches = passwordEncoder.matches(
+                request.getPassword(),
+                student.getPasswordHash()
+        );
+
+        System.out.println("Password matches: "+matches);
+
         if(!passwordEncoder.matches(request.getPassword(), student.getPasswordHash())){
             throw new IllegalArgumentException("Invalid email or password");
         }
+
+
 
         String token = jwtUtil.generateToken(student.getEmail(),student.getId().toString());
 

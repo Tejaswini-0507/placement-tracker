@@ -20,6 +20,7 @@ public class DashboardController {
 
     @GetMapping
     public ResponseEntity<?> getDashboard() {
+        System.out.println("===========Dashboard endpoint reached=======");
         try {
             DashboardStats stats = dashboardService.getDashBoard();
             return ResponseEntity.ok(stats);

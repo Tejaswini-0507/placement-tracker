@@ -4,11 +4,16 @@ import com.example.placement_tracker.dto.ErrorResponse;
 import com.example.placement_tracker.dto.ResumeResponse;
 import com.example.placement_tracker.service.ResumeVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +40,7 @@ public class ResumeVersionController {
                     new ErrorResponse("VALIDATION_ERROR", e.getMessage(), System.currentTimeMillis())
             );
         } catch (IOException e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body(
                     new ErrorResponse("INTERNAL_ERROR", "Failed to upload resume: " + e.getMessage(), System.currentTimeMillis())
             );
@@ -100,5 +106,33 @@ public class ResumeVersionController {
                 .body(new ErrorResponse("INTERNAL_ERROR", "Failed to delete resume",System.currentTimeMillis()));
         }
 
+    }
+
+    @GetMapping("/{id}/download")
+    public ResponseEntity<?> downloadResume(@PathVariable UUID id) {
+        try {
+            ResumeResponse resume = resumeService.getResumeById(id);
+
+            Path filePath = Paths.get(resume.getFileUrl());
+            if (!Files.exists(filePath)) {
+                return ResponseEntity.status(404)
+                        .body(new ErrorResponse("NOT_FOUND", "File not found on server", System.currentTimeMillis()));
+            }
+
+            byte[] fileBytes = Files.readAllBytes(filePath);
+            String originalFileName = filePath.getFileName().toString();
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + originalFileName + "\"")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(fileBytes);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404)
+                    .body(new ErrorResponse("NOT_FOUND", e.getMessage(), System.currentTimeMillis()));
+        } catch (IOException e) {
+            return ResponseEntity.status(500)
+                    .body(new ErrorResponse("INTERNAL_ERROR", "Failed to read file", System.currentTimeMillis()));
+        }
     }
 }

@@ -1,0 +1,82 @@
+/* ==========================================================================
+   CAREERSPACE - HELP PAGE STYLESHEET
+   Extends: style.css (tokens) + dashboard.css (shell layout)
+   ========================================================================== */
+
+.help-grid {
+    gap: 20px;
+    max-width: 900px;
+}
+
+.help-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.help-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--light-blue);
+}
+
+.help-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.help-card-icon.blue { background-color: var(--light-blue); }
+.help-card-icon.purple { background-color: var(--purple-light); }
+
+.help-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 10px;
+}
+
+.help-card p {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex: 1;
+}
+
+.help-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    transition: gap var(--transition-fast);
+}
+
+.help-card:hover .help-card-cta {
+    gap: 12px;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .help-grid {
+        grid-template-columns: 1fr;
+    }
+}

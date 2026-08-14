@@ -137,7 +137,6 @@ public class DataGenerator implements CommandLineRunner {
 //                        .id(UUID.randomUUID())
                         .company(company)
                         .title(role)
-                        .location(company.getHeadQuarters())
                         .createdAt(System.currentTimeMillis())
                         .build();
 

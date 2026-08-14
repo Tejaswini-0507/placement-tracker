@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - View and manage your student profile.">
+    <title>My Profile | CareerSpace</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Base, Dashboard Shell & Profile Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body class="dashboard-body">
+
+<!-- Mobile Sidebar Backdrop Overlay -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <!-- ==========================================
+         1. FIXED LEFT SIDEBAR
+         ========================================== -->
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../resumes/resumes.html" class="sidebar-link">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile.html" class="sidebar-link active">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#help" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+
+    <!-- ==========================================
+         2. MAIN WRAPPER (TOPBAR + CONTENT)
+         ========================================== -->
+    <div class="dash-main-wrapper">
+
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">My Profile</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Manage your personal and academic details.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileNameMenu">--</strong>
+                            <span id="profileEmailMenu">--</span>
+                            <span class="user-badge" id="profileBranchMenu">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="profile.html" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="dash-content-container">
+
+            <!-- LOADING STATE -->
+            <section class="dash-section" id="profileLoading">
+                <div class="profile-header-card skeleton-card">
+                    <div class="skeleton skeleton-avatar-lg"></div>
+                    <div class="skeleton-lines">
+                        <div class="skeleton skeleton-line" style="width:220px;"></div>
+                        <div class="skeleton skeleton-line" style="width:160px;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ERROR STATE -->
+            <section class="dash-section hidden" id="profileError">
+                <div class="empty-state">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3>Couldn't load your profile</h3>
+                    <p id="profileErrorMessage">Something went wrong while fetching your data.</p>
+                    <button class="btn btn-secondary" id="retryProfileBtn">Try Again</button>
+                </div>
+            </section>
+
+            <!-- PROFILE CONTENT (populated by profile.js) -->
+            <div id="profileContent" class="hidden">
+
+                <!-- PROFILE HEADER CARD -->
+                <section class="dash-section">
+                    <div class="profile-header-card">
+                        <div class="profile-avatar-lg" id="profileAvatarLg">--</div>
+                        <div class="profile-header-info">
+                            <h2 class="profile-header-name" id="profileHeaderName">--</h2>
+                            <p class="profile-header-email" id="profileHeaderEmail">--</p>
+                            <div class="profile-header-badges" id="profileHeaderBadges">
+                                <!-- branch / batch badges injected by JS -->
+                            </div>
+                        </div>
+                        <button class="btn btn-primary profile-edit-btn" id="editProfileBtn">✏️ Edit Profile</button>
+                    </div>
+                </section>
+
+                <!-- DETAILS + LINKS SPLIT ROW -->
+                <div class="dash-split-grid margin-top profile-split-grid">
+
+                    <!-- ABOUT / BIO -->
+                    <section class="dash-section content-panel">
+                        <div class="panel-header-row">
+                            <h2 class="dash-section-title">About</h2>
+                        </div>
+                        <p class="profile-bio-text" id="profileBioText">No bio added yet.</p>
+
+                        <div class="profile-info-grid margin-top">
+                            <div class="profile-info-item">
+                                <span class="profile-info-label">Branch</span>
+                                <span class="profile-info-value" id="infoBranch">—</span>
+                            </div>
+                            <div class="profile-info-item">
+                                <span class="profile-info-label">Batch</span>
+                                <span class="profile-info-value" id="infoBatch">—</span>
+                            </div>
+                            <div class="profile-info-item">
+                                <span class="profile-info-label">Phone Number</span>
+                                <span class="profile-info-value" id="infoPhone">—</span>
+                            </div>
+                            <div class="profile-info-item">
+                                <span class="profile-info-label">Member Since</span>
+                                <span class="profile-info-value" id="infoCreatedAt">—</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- QUICK LINKS -->
+                    <section class="dash-section content-panel">
+                        <div class="panel-header-row">
+                            <h2 class="dash-section-title">Links</h2>
+                        </div>
+
+                        <div class="profile-links-list">
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="profile-link-item hidden" id="linkedinLink">
+                                <span class="profile-link-icon">🔗</span>
+                                <div class="profile-link-text">
+                                    <strong>LinkedIn</strong>
+                                    <span>View profile ↗</span>
+                                </div>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="profile-link-item hidden" id="githubLink">
+                                <span class="profile-link-icon">💻</span>
+                                <div class="profile-link-text">
+                                    <strong>GitHub</strong>
+                                    <span>View profile ↗</span>
+                                </div>
+                            </a>
+                            <p class="profile-no-links hidden" id="noLinksMessage">No links added yet. Edit your profile to add them.</p>
+                        </div>
+
+                        <div class="panel-header-row margin-top">
+                            <h2 class="dash-section-title">Account</h2>
+                        </div>
+                        <div class="profile-info-grid">
+                            <div class="profile-info-item">
+                                <span class="profile-info-label">Last Updated</span>
+                                <span class="profile-info-value" id="infoUpdatedAt">—</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+
+<!-- ==========================================
+     MODAL: EDIT PROFILE FORM
+     ========================================== -->
+<div class="modal-overlay hidden" id="profileFormModal">
+    <div class="modal-box modal-box-lg">
+        <div class="modal-header">
+            <h2>Edit Profile</h2>
+            <button class="modal-close-btn" id="closeProfileModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <form id="profileForm" class="modal-body" novalidate>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="formName" class="form-label">Full Name *</label>
+                    <input type="text" id="formName" class="form-control" placeholder="e.g. Ananya Sharma" required>
+                    <span class="field-error" id="formNameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formEmail" class="form-label">Email</label>
+                    <input type="email" id="formEmail" class="form-control" disabled>
+                    <span class="field-hint">Email cannot be changed here.</span>
+                </div>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="formBranch" class="form-label">Branch</label>
+                    <input type="text" id="formBranch" class="form-control" placeholder="e.g. Computer Science">
+                    <span class="field-error" id="formBranchError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formBatch" class="form-label">Batch (Year)</label>
+                    <input type="number" id="formBatch" class="form-control" placeholder="e.g. 2026" min="1900" step="1">
+                    <span class="field-error" id="formBatchError"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="formPhone" class="form-label">Phone Number</label>
+                <input type="tel" id="formPhone" class="form-control" placeholder="e.g. +91 98765 43210">
+                <span class="field-error" id="formPhoneError"></span>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="formLinkedin" class="form-label">LinkedIn URL</label>
+                    <input type="url" id="formLinkedin" class="form-control" placeholder="https://linkedin.com/in/username">
+                    <span class="field-error" id="formLinkedinError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGithub" class="form-label">GitHub URL</label>
+                    <input type="url" id="formGithub" class="form-control" placeholder="https://github.com/username">
+                    <span class="field-error" id="formGithubError"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="formBio" class="form-label">Bio</label>
+                <textarea id="formBio" class="form-control textarea-control" rows="4" placeholder="A short introduction about yourself..." maxlength="500"></textarea>
+                <span class="field-hint" id="bioCharCount">0 / 500</span>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelProfileFormBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="submitProfileBtn">
+                    <span class="btn-text">Save Changes</span>
+                    <div class="btn-spinner hidden" id="profileFormSpinner"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Scripts -->
+<script src="../apiCilent.js"></script>
+<script src="profile.js"></script>
+</body>
+</html>

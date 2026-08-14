@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CareerSpace - Manage your resume versions.">
+    <title>Resume Versions | CareerSpace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../dashboard/dashboard.css">
+    <link rel="stylesheet" href="resumes.css">
+</head>
+<body class="dashboard-body">
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="dash-layout">
+    <aside class="dash-sidebar" id="dashSidebar">
+        <div class="sidebar-header">
+            <a href="../dashboard/dashboard.html" class="brand-logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CareerSpace</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="../dashboard/dashboard.html" class="sidebar-link">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../applications/applications.html" class="sidebar-link">
+                        <span class="nav-icon">📝</span>
+                        <span class="nav-label">Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="resumes.html" class="sidebar-link active">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-label">Resume Versions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../companies/companies.html" class="sidebar-link">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-label">Companies</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../experiences/experiences.html" class="sidebar-link">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-label">Interview Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../discussions/discussions.html" class="sidebar-link">
+                        <span class="nav-icon">🗣️</span>
+                        <span class="nav-label">Discussions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../browse-experiences/browse-experiences.html" class="sidebar-link active">
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Browse Experiences</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../search/search.html" class="sidebar-link" >
+                        <span class="nav-icon">🔍</span>
+                        <span class="nav-label">Search</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../analytics/analytics.html" class="sidebar-link">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-label">Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile" class="sidebar-link">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <ul class="nav-section-list">
+                <li class="nav-item">
+                    <a href="#help" class="sidebar-link">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-label">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="dash-main-wrapper">
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="mobile-sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </button>
+                <h1 class="topbar-page-title">Resume Versions</h1>
+            </div>
+
+            <div class="topbar-center">
+                <div class="welcome-banner">
+                    <span class="welcome-text">Upload and manage tailored resume versions.</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-dropdown-container">
+                    <button class="avatar-button" id="avatarBtn" aria-expanded="false" aria-haspopup="true" aria-label="User Profile Menu">
+                        <div class="avatar-circle" id="avatarCircle">--</div>
+                        <span class="user-display-name" id="userDisplayName">Loading...</span>
+                        <span class="dropdown-chevron">▼</span>
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="profileDropdown">
+                        <div class="menu-user-info">
+                            <strong id="profileName">--</strong>
+                            <span id="profileEmail">--</span>
+                            <span class="user-badge" id="profileBranch">--</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <ul class="menu-items">
+                            <li><a href="#profile" class="menu-link">👤 My Profile</a></li>
+                            <li><a href="#settings" class="menu-link">⚙️ Account Settings</a></li>
+                            <li><a href="../login/login.html" class="menu-link text-danger" id="logoutLink">🚪 Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dash-content-container">
+
+            <section class="dash-section">
+                <div class="companies-toolbar">
+                    <div class="toolbar-search-wrapper">
+                        <svg class="toolbar-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="resumeSearchInput" class="form-control toolbar-search-input" placeholder="Search by notes or version...">
+                    </div>
+
+                    <div class="toolbar-filter-wrapper">
+                        <select id="resumeSortSelect" class="form-control toolbar-select">
+                            <option value="version-desc">Version (Newest)</option>
+                            <option value="version-asc">Version (Oldest)</option>
+                            <option value="size-desc">File Size (Largest)</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" id="uploadResumeBtn">
+                        <span>+ Upload Resume</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="dash-section">
+                <div id="resumesLoading" class="resumes-grid"></div>
+
+                <div id="resumesEmpty" class="empty-state hidden">
+                    <div class="empty-state-icon">📄</div>
+                    <h3>No resumes uploaded yet</h3>
+                    <p>Upload tailored resume versions for different companies and roles to keep them organized in one place.</p>
+                    <button class="btn btn-primary" id="emptyStateUploadBtn">+ Upload Your First Resume</button>
+                </div>
+
+                <div id="resumesError" class="empty-state hidden">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3>Couldn't load resumes</h3>
+                    <p id="resumesErrorMessage">Something went wrong while fetching data from the server.</p>
+                    <button class="btn btn-secondary" id="resumesRetryBtn">Try Again</button>
+                </div>
+
+                <div id="resumesNoResults" class="empty-state hidden">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>No matching resumes</h3>
+                    <p>Try a different search term.</p>
+                    <button class="btn btn-secondary" id="resumesClearSearchBtn">Clear Search</button>
+                </div>
+
+                <div id="resumesGrid" class="resumes-grid hidden"></div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<!-- MODAL: UPLOAD RESUME -->
+<div class="modal-overlay hidden" id="uploadResumeModal">
+    <div class="modal-box modal-box-lg">
+        <div class="modal-header">
+            <h2>Upload Resume</h2>
+            <button class="modal-close-btn" id="closeUploadModalBtn" aria-label="Close">&times;</button>
+        </div>
+
+        <form id="uploadResumeForm" class="modal-body" novalidate>
+            <div class="form-group">
+                <label class="form-label">Resume File *</label>
+                <div class="dropzone" id="dropzone">
+                    <input type="file" id="resumeFileInput" accept=".pdf,.docx" hidden>
+                    <div class="dropzone-content" id="dropzoneEmpty">
+                        <div class="dropzone-icon">📄</div>
+                        <p><strong>Click to browse</strong> or drag and drop</p>
+                        <span class="dropzone-hint">PDF or DOCX, up to 5MB</span>
+                    </div>
+                    <div class="dropzone-file hidden" id="dropzoneFile">
+                        <span class="dropzone-file-icon">📎</span>
+                        <div class="dropzone-file-info">
+                            <strong id="dropzoneFileName">filename.pdf</strong>
+                            <span id="dropzoneFileSize">0 KB</span>
+                        </div>
+                        <button type="button" class="dropzone-remove-btn" id="dropzoneRemoveBtn" aria-label="Remove file">&times;</button>
+                    </div>
+                </div>
+                <span class="field-error" id="resumeFileError"></span>
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="resumeVersionNumber" class="form-label">Version Number *</label>
+                    <input type="number" id="resumeVersionNumber" class="form-control" min="1" step="1" required>
+                    <span class="field-error" id="resumeVersionError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="resumeUsedFor" class="form-label">Used For (companies)</label>
+                    <input type="text" id="resumeUsedFor" class="form-control" placeholder="e.g. Microsoft, Google (comma separated)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="resumeNotes" class="form-label">Notes</label>
+                <textarea id="resumeNotes" class="form-control textarea-control" rows="3" placeholder="e.g. Tailored for backend roles, includes system design projects..."></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelUploadBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="submitUploadBtn">
+                    <span class="btn-text">Upload Resume</span>
+                    <div class="btn-spinner hidden" id="uploadSpinner"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- MODAL: DELETE CONFIRM -->
+<div class="modal-overlay hidden" id="deleteResumeModal">
+    <div class="modal-box modal-box-sm">
+        <div class="modal-body confirm-modal-body">
+            <div class="confirm-icon">🗑️</div>
+            <h3>Delete this resume?</h3>
+            <p>This will permanently remove <strong id="deleteResumeName">this resume</strong> and cannot be undone.</p>
+            <div class="modal-footer confirm-footer">
+                <button class="btn btn-secondary" id="cancelDeleteResumeBtn">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteResumeBtn">
+                    <span class="btn-text">Delete</span>
+                    <div class="btn-spinner hidden" id="deleteResumeSpinner"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../apiCilent.js"></script>
+<script src="resumes.js"></script>
+</body>
+</html>

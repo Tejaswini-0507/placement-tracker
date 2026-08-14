@@ -1,0 +1,103 @@
+/* ==========================================================================
+   CAREERSPACE - ANALYTICS MODULE STYLESHEET
+   Extends: style.css (tokens) + dashboard.css (shell, .stat-metric-card, .dash-table)
+   ========================================================================== */
+
+.hidden { display: none !important; }
+
+/* --------------------------------------------------------------------------
+   LOADING / ERROR STATES
+   -------------------------------------------------------------------------- */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 64px 24px;
+    background-color: #FFFFFF;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+.empty-state-icon { font-size: 2.5rem; margin-bottom: 16px; opacity: 0.8; }
+.empty-state h3 { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--primary-text); margin-bottom: 8px; }
+.empty-state p { font-size: 0.9rem; color: var(--secondary-text); max-width: 380px; margin-bottom: 20px; }
+
+
+/* --------------------------------------------------------------------------
+   KPI GRID
+   -------------------------------------------------------------------------- */
+.kpi-grid {
+    gap: 16px;
+}
+
+.grid-5 {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.metric-icon.indigo { background-color: #E0E7FF; }
+
+
+/* --------------------------------------------------------------------------
+   CHART CONTAINERS
+   -------------------------------------------------------------------------- */
+.chart-container {
+    position: relative;
+    height: 280px;
+    padding: 10px 0;
+}
+
+.chart-container-wide {
+    height: 320px;
+}
+
+.chart-empty {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+}
+
+.chart-empty.hidden {
+    display: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESUME TABLE EXTRAS
+   -------------------------------------------------------------------------- */
+.current-version-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    background-color: var(--light-blue);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    margin-left: 8px;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+    .grid-5 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-5 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chart-container {
+        height: 240px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-5 {
+        grid-template-columns: 1fr;
+    }
+}
