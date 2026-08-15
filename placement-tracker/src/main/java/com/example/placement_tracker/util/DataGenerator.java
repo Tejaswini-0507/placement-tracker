@@ -50,8 +50,8 @@ public class DataGenerator implements CommandLineRunner {
         }
 
 //        addMoreInterviewRoundConfigs(companies);
-        addMoreApplications(students, companies, positions);
-        addMoreExperiences(students, companies);
+//        addMoreApplications(students, companies, positions);
+//        addMoreExperiences(students, companies);
 
         System.out.println("Test data added successfully");
     }
