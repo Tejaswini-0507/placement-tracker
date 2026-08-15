@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Small delay so the success message is visible
             setTimeout(() => {
-                window.location.href = "dashboard.html";
+                window.location.href = "static/dashboard/dashboard.html";
             }, 800);
 
         } catch (error) {
