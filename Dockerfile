@@ -2,12 +2,12 @@
 FROM maven:3.9.6-eclipse-temurin-17-alpine AS builder
 WORKDIR /build
 
-# Copy pom.xml and download dependencies
-COPY pom.xml .
+# Copy pom.xml from nested folder and download dependencies
+COPY placement-tracker/pom.xml .
 RUN mvn dependency:go-offline
 
-# Copy source code
-COPY src src
+# Copy source code from nested folder
+COPY placement-tracker/src src
 
 # Build application
 RUN mvn clean package -DskipTests
