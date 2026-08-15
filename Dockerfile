@@ -10,7 +10,7 @@ RUN mvn dependency:go-offline
 COPY placement-tracker/src src
 
 # Build application
-RUN mvn clean package -DskipTests
+RUN mvn clean package -Dmaven.test.skip=true
 
 # Runtime stage
 FROM eclipse-temurin:17-jre-alpine
@@ -29,4 +29,3 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
 # Run application
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
-RUN mvn clean package -Dmaven.test.skip=true
