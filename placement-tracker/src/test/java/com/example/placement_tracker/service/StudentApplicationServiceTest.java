@@ -81,7 +81,6 @@ public class StudentApplicationServiceTest {
                 .id(UUID.randomUUID())
                 .company(testCompany)
                 .title("Software Developer")
-                .location("India")
                 .build();
 
         testApplication = StudentApplication.builder()
@@ -96,8 +95,6 @@ public class StudentApplicationServiceTest {
         request = StudentApplicationRequest.builder()
                 .companyId(testCompany.getId())
                 .status("APPLIED")
-                .positionTitle("Software Developer")
-                .location("India")
                 .statusUpdatedAt(System.currentTimeMillis())
                 .build();
     }
