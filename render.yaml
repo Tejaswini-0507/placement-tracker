@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: placement-tracker-api
+    env: java
+    plan: free
+
+    # Build configuration
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/placement-tracker-0.0.1-SNAPSHOT.jar
+
+    # Environment variables
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        fromDatabase:
+          name: placement-tracker-db
+          property: connectionString
+      - key: DB_USERNAME
+        fromDatabase:
+          name: placement-tracker-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: placement-tracker-db
+          property: password
+      - key: JWT_SECRET
+        sync: false
+      - key: JAVA_TOOL_OPTIONS
+        value: -Xmx256m
+
+    # Health check
+    healthCheckPath: /api/health
+
+    # Auto-deploy on push
+    autoDeploy: true
+
+databases:
+  - name: placement-tracker-db
+    engine: postgres
+    version: "15"
+    plan: free
+    initialDatabase: placement_tracker
+    user: placement_user

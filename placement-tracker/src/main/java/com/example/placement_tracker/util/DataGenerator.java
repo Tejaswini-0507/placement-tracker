@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.springframework.data.elasticsearch.annotations.IndexOptions.positions;
+//import static org.springframework.data.elasticsearch.annotations.IndexOptions.positions;
 
 //@Component
 public class DataGenerator implements CommandLineRunner {

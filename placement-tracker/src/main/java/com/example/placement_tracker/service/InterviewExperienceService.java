@@ -1,6 +1,6 @@
 package com.example.placement_tracker.service;
 
-import com.example.placement_tracker.document.ExperienceDocument;
+//import com.example.placement_tracker.document.ExperienceDocument;
 import com.example.placement_tracker.dto.InterviewExperienceRequest;
 import com.example.placement_tracker.dto.InterviewExperienceResponse;
 import com.example.placement_tracker.entity.*;
@@ -41,8 +41,8 @@ public class InterviewExperienceService {
     @Autowired
     InterviewRoundConfigRepository interviewRoundConfigRepository;
 
-    @Autowired
-    ExperienceSearchRepository experienceSearchRepository;
+//    @Autowired
+//    ExperienceSearchRepository experienceSearchRepository;
 
     @Autowired
     InterviewRoundConfigService interviewRoundConfigService;
@@ -117,8 +117,8 @@ public class InterviewExperienceService {
 
            interviewExperience = interviewExperienceRepository.save(interviewExperience);
 
-           ExperienceDocument document = convertToDocument(interviewExperience);
-           experienceSearchRepository.save(document);
+//           ExperienceDocument document = convertToDocument(interviewExperience);
+//           experienceSearchRepository.save(document);
 
            return entityToResponse(interviewExperience);
        }
@@ -247,7 +247,7 @@ public class InterviewExperienceService {
         InterviewExperience interviewExperience = interviewExperienceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Experience not found"));
         interviewExperienceRepository.delete(interviewExperience);
-        experienceSearchRepository.deleteById(interviewExperience.getId());
+//        experienceSearchRepository.deleteById(interviewExperience.getId());
 
     }
 
@@ -286,38 +286,36 @@ public class InterviewExperienceService {
                 .build();
     }
 
-    private ExperienceDocument convertToDocument(InterviewExperience experience) {
-
-
-
-        return ExperienceDocument.builder()
-                .id(experience.getId())
-                .studentId(experience.getStudent().getId())
-                .studentName(experience.getStudent().getName()) // Change if your field name is different
-                .companyId(experience.getCompany().getId())
-                .companyName(experience.getCompany().getName())
-                .positionTitle(experience.getStudentApplication().getPosition().getTitle())// Change if your field name is different
-                .interviewRoundConfigId(experience.getInterviewRoundConfig().getId())
-                .interviewRoundName(experience.getInterviewRoundConfig().getRoundName())
-                .difficultyRating(experience.getDifficultyRating())
-                .durationMinutes(experience.getDurationMinutes())
-                .totalProblemsAsked(experience.getTotalProblemsAsked())
-                .questionsAsked(experience.getQuestionsAsked())
-
-                // Convert JsonNode to String
-                .topics(convertTopics(experience.getTopics()))
-
-                .experienceSummary(experience.getExperienceSummary())
-                .helpfulResources(experience.getHelpfulResources())
-                .result(experience.getResult().name())
-                .resultReceivedDate(experience.getResultReceivedDate())
-                .isPublic(experience.getIsPublic())
-                .upvotes(experience.getUpvotes())
-                .downvotes(experience.getDownvotes())
-                .createdAt(experience.getCreatedAt())
-                .updatedAt(experience.getUpdatedAt())
-                .build();
-    }
+//    private ExperienceDocument convertToDocument(InterviewExperience experience) {
+//
+//        return ExperienceDocument.builder()
+//                .id(experience.getId())
+//                .studentId(experience.getStudent().getId())
+//                .studentName(experience.getStudent().getName()) // Change if your field name is different
+//                .companyId(experience.getCompany().getId())
+//                .companyName(experience.getCompany().getName())
+//                .positionTitle(experience.getStudentApplication().getPosition().getTitle())// Change if your field name is different
+//                .interviewRoundConfigId(experience.getInterviewRoundConfig().getId())
+//                .interviewRoundName(experience.getInterviewRoundConfig().getRoundName())
+//                .difficultyRating(experience.getDifficultyRating())
+//                .durationMinutes(experience.getDurationMinutes())
+//                .totalProblemsAsked(experience.getTotalProblemsAsked())
+//                .questionsAsked(experience.getQuestionsAsked())
+//
+//                // Convert JsonNode to String
+//                .topics(convertTopics(experience.getTopics()))
+//
+//                .experienceSummary(experience.getExperienceSummary())
+//                .helpfulResources(experience.getHelpfulResources())
+//                .result(experience.getResult().name())
+//                .resultReceivedDate(experience.getResultReceivedDate())
+//                .isPublic(experience.getIsPublic())
+//                .upvotes(experience.getUpvotes())
+//                .downvotes(experience.getDownvotes())
+//                .createdAt(experience.getCreatedAt())
+//                .updatedAt(experience.getUpdatedAt())
+//                .build();
+//    }
 
     private List<String> convertTopics(JsonNode topicsNode) {
 
