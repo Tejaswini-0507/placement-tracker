@@ -11,7 +11,7 @@
  *   - escapeHtml(str)            -> safe string interpolation into innerHTML
  */
 
-const API_BASE_URL = "http://localhost:8081/api";
+const API_BASE_URL = "https://placement-tracker-67yr.onrender.com/api";
 
 /* --------------------------------------------------------------------------
    API REQUEST WRAPPER

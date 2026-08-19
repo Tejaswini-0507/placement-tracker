@@ -38,7 +38,7 @@ public class AuthController {
                     .body(new ErrorResponse("VALIDATION_ERROR",e.getMessage(),System.currentTimeMillis()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse("SERVER_ERROR", "An error occurred",System.currentTimeMillis()));
+                    .body(new ErrorResponse("SERVER_ERROR", e.getMessage(),System.currentTimeMillis()));
         }
     }
 
@@ -53,7 +53,7 @@ public class AuthController {
                     .body(new ErrorResponse("AUTH_ERROR", e.getMessage(),System.currentTimeMillis()));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorResponse("SERVER_ERROR","An error occured", System.currentTimeMillis()));
+                    .body(new ErrorResponse("SERVER_ERROR",e.getMessage(), System.currentTimeMillis()));
         }
 
 
