@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
             batch: Number(batchSelect.value)
         };
 
-        fetch("http://localhost:8081/api/auth/register", {
+        fetch("https://placement-tracker-api.onrender.com/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
