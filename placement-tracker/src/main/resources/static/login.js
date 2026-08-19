@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Simulate API Login Verification
         try {
 
-            const response = await fetch("https://placement-tracker-api.onrender.com/api/auth/login", {
+            const response = await fetch("http://localhost:8081/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
