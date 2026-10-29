@@ -212,7 +212,7 @@ placement-tracker/
 **Tejaswini**  
 Computer Science and Engineering Student
 
-GitHub: [Your GitHub Profile](https://github.com/)
+GitHub: https://github.com/Tejaswini_0507
 
 ---
 
